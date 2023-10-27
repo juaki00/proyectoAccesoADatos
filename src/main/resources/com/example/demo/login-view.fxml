@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="325.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="325.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.LoginController">
    <children>
       <VBox alignment="CENTER" layoutX="23.0" layoutY="56.0" spacing="27.0">
          <children>
@@ -41,7 +41,7 @@
                   </FXCollections>
                </items>
             </ComboBox>
-            <Button id="btnEntrar" mnemonicParsing="false" text="Entrar" />
+            <Button id="btnEntrar" mnemonicParsing="false" style="-fx-background-color: red;" text="Entrar" />
             <HBox alignment="CENTER" prefHeight="20.0" prefWidth="280.0" spacing="60.0">
                <children>
                   <Label id="pregunta" layoutX="90.0" layoutY="25.0" prefHeight="25.0" prefWidth="100.0" text="¿Alguna pregunta?" />
