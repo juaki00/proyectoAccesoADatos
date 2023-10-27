@@ -10,14 +10,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane prefHeight="566.0" prefWidth="892.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.EditarAlumno">
    <center>
       <VBox prefHeight="536.0" prefWidth="881.0">
          <children>
             <BorderPane>
                <center>
-                  <TableView prefHeight="534.0" prefWidth="892.0">
+                  <TableView prefHeight="534.0" prefWidth="892.0" style="-fx-border-color: black;">
                     <columns>
                       <TableColumn prefWidth="75.0" text="Fecha" />
                       <TableColumn prefWidth="75.0" text="Tipo de práctica" />
@@ -30,21 +29,11 @@
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
-                     <padding>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                     </padding>
+                     <BorderPane.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </BorderPane.margin>
                   </TableView>
                </center>
-               <top>
-                  <Label text="Tutor: Francisco Romero" BorderPane.alignment="CENTER_LEFT">
-                     <BorderPane.margin>
-                        <Insets bottom="35.0" left="35.0" right="35.0" top="35.0" />
-                     </BorderPane.margin>
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-               </top>
             </BorderPane>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                <children>
@@ -114,4 +103,14 @@
          </padding>
       </Label>
    </bottom>
+   <top>
+      <Label text="Tutor: Francisco Romero" BorderPane.alignment="CENTER_LEFT">
+         <BorderPane.margin>
+            <Insets bottom="35.0" left="35.0" right="35.0" top="35.0" />
+         </BorderPane.margin>
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+   </top>
 </BorderPane>
