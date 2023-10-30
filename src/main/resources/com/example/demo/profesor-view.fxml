@@ -31,7 +31,7 @@
                   <HBox alignment="CENTER" prefHeight="38.0" prefWidth="280.0">
                      <children>
                         <Label text="Nombre" />
-                        <TextField fx:id="txtNombreAlumno">
+                        <TextField>
                            <HBox.margin>
                               <Insets left="20.0" />
                            </HBox.margin>
@@ -41,7 +41,7 @@
                   <HBox alignment="CENTER" prefHeight="38.0" prefWidth="280.0">
                      <children>
                         <Label text="Apellidos" />
-                        <TextField fx:id="txtApellidosAlumno">
+                        <TextField>
                            <HBox.margin>
                               <Insets left="20.0" />
                            </HBox.margin>
@@ -51,7 +51,7 @@
                   <HBox alignment="CENTER" prefHeight="38.0" prefWidth="280.0">
                      <children>
                         <Label text="Contraseña" />
-                        <TextField fx:id="txtContrasenhaAlumno">
+                        <TextField>
                            <HBox.margin>
                               <Insets left="20.0" right="14.0" />
                            </HBox.margin>
@@ -61,7 +61,7 @@
                   <HBox alignment="CENTER" prefHeight="38.0" prefWidth="280.0">
                      <children>
                         <Label text="DNI" />
-                        <TextField fx:id="txtDniAlumno">
+                        <TextField>
                            <HBox.margin>
                               <Insets left="47.0" />
                            </HBox.margin>
@@ -71,7 +71,7 @@
                   <HBox alignment="CENTER" prefHeight="36.0" prefWidth="280.0">
                      <children>
                         <Label text="Email" />
-                        <TextField fx:id="txtEmailAlumno">
+                        <TextField>
                            <HBox.margin>
                               <Insets left="40.0" />
                            </HBox.margin>
@@ -81,7 +81,7 @@
                   <HBox prefHeight="33.0" prefWidth="280.0">
                      <children>
                         <Label text="Fecha nacimiento" />
-                        <DatePicker fx:id="DatePickerAlumno" prefHeight="25.0" prefWidth="151.0">
+                        <DatePicker prefHeight="25.0" prefWidth="151.0">
                            <HBox.margin>
                               <Insets left="8.0" />
                            </HBox.margin>
@@ -94,7 +94,7 @@
                   <HBox alignment="CENTER" prefHeight="51.0" prefWidth="280.0">
                      <children>
                         <Label text="Teléfono" />
-                        <TextField fx:id="txtTelefonoAlumno" alignment="CENTER">
+                        <TextField alignment="CENTER">
                            <HBox.margin>
                               <Insets left="20.0" />
                            </HBox.margin>
@@ -104,7 +104,7 @@
                   <HBox alignment="CENTER" prefHeight="51.0" prefWidth="280.0">
                      <children>
                         <Label text="Empresa" />
-                        <ComboBox fx:id="comboEmpresaAlumno" prefWidth="150.0">
+                        <ComboBox prefWidth="150.0">
                            <HBox.margin>
                               <Insets left="20.0" />
                            </HBox.margin>
@@ -116,7 +116,7 @@
                   <Label text="Observaciones" />
                   <ScrollPane prefHeight="133.0" prefWidth="213.0">
                      <content>
-                        <TextArea fx:id="txtObservacionesAlumno" prefHeight="323.0" prefWidth="273.0" />
+                        <TextArea prefHeight="323.0" prefWidth="273.0" />
                      </content>
                   </ScrollPane>
                </children>
@@ -124,17 +124,17 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </VBox>
-            <TableView id="tabla" fx:id="tabla" onMouseClicked="#click" prefHeight="500.0" prefWidth="500.0">
+            <TableView id="tabla" prefHeight="500.0" prefWidth="500.0">
                <columns>
-                  <TableColumn fx:id="cNombreAlumno" prefWidth="75.0" text="Nombre" />
-                  <TableColumn fx:id="cApellidosAlumno" prefWidth="75.0" text="Apellidos" />
-                  <TableColumn fx:id="cDniAlumno" prefWidth="75.0" text="DNI" />
-                  <TableColumn fx:id="cFechaNacAlumno" prefWidth="75.0" text="Fecha_Nac" />
-                  <TableColumn fx:id="cEmailAlumno" prefWidth="75.0" text="Email" />
-                  <TableColumn fx:id="cEmpresaAlumno" prefWidth="75.0" text="Empresa" />
-                  <TableColumn fx:id="cHorasDualAlumno" prefWidth="75.0" text="Horas Dual" />
-                  <TableColumn fx:id="cHorasFctAlumno" prefWidth="75.0" text="Horas FCT" />
-                  <TableColumn fx:id="cObservacionAlumno" prefWidth="75.0" text="Observaciones" />
+                  <TableColumn prefWidth="75.0" text="Nombre" />
+                  <TableColumn prefWidth="75.0" text="Apellidos" />
+                  <TableColumn prefWidth="75.0" text="DNI" />
+                  <TableColumn prefWidth="75.0" text="Fecha_Nac" />
+                  <TableColumn prefWidth="75.0" text="Email" />
+                  <TableColumn prefWidth="75.0" text="Empresa" />
+                  <TableColumn prefWidth="75.0" text="Horas Dual" />
+                  <TableColumn prefWidth="75.0" text="Horas FCT" />
+                  <TableColumn prefWidth="75.0" text="Observaciones" />
                </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -156,7 +156,7 @@
    <bottom>
       <HBox prefHeight="43.0" prefWidth="880.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnAñadir" mnemonicParsing="false" onAction="#insertarReceta" text="Añadir a la tabla">
+            <Button fx:id="btnAñadir" mnemonicParsing="false" onAction="#insertarAlumno" text="Añadir a la tabla">
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin>
