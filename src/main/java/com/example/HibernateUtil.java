@@ -13,8 +13,7 @@ public class HibernateUtil {
     static {
         try {
             Configuration cfg = new Configuration();
-            cfg.configure();
-            sf = cfg.buildSessionFactory();
+            sf = cfg.configure().buildSessionFactory();
             log.info("SessionFactory creada con exito!");
         } catch(Exception e){
             log.severe("Error al crear SessionFactory");
