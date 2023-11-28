@@ -25,10 +25,6 @@ public class Sesion {
     @Getter
     private static DiaryActivity DiaryActivityPulsada;
 
-    @Setter
-    @Getter
-    private static Teacher currentTeacher;
-
     public static void logOut(){
         teacherLogged = null;
         studentSelected = null;
