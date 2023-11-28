@@ -126,4 +126,27 @@ public class TeacherDAO implements DAO<Teacher> {
         });
     }
 
+    public boolean isCorrectProfesor(String user, String pass) {
+        return loadLogin(user,pass) != null;
+    }
+
+    public Teacher loadLogin(String user, String pass) {
+        Teacher result = null;
+
+        try(Session session = HibernateUtil.getSessionFactory().openSession()){
+            Query<Teacher> q = session.createQuery("from Teacher where first_name=:fn and access_password=:p", Teacher.class);
+            q.setParameter("fn",user);
+            q.setParameter("p",pass);
+
+            try {
+                result = q.getSingleResult();
+            }catch (Exception e){
+
+            }
+        }
+        return result;
+
+
+    }
+
 }
