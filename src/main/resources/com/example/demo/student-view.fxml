@@ -64,13 +64,13 @@
                      </children>
                   </VBox>
                   <TableView fx:id="tvTareas" prefHeight="400.0" prefWidth="550.0">
-                     <columns>
-                        <TableColumn fx:id="cFecha" prefWidth="69.60003358125687" text="Fecha" />
-                        <TableColumn fx:id="cTipoPractica" prefWidth="92.79998779296875" text="Tipo Práctica" />
+                    <columns>
+                      <TableColumn fx:id="cFecha" prefWidth="69.60003358125687" text="Fecha" />
+                      <TableColumn fx:id="cTipoPractica" prefWidth="92.79998779296875" text="Tipo Práctica" />
                         <TableColumn fx:id="cHorasTotales" prefWidth="104.80006408691406" text="Horas totales" />
                         <TableColumn fx:id="cActividadRealizada" prefWidth="126.4000244140625" text="Actividad Realizada" />
                         <TableColumn fx:id="cObservaciones" prefWidth="154.39999999999998" text="Observaciones e incidencias" />
-                     </columns>
+                    </columns>
                   </TableView>
                </children>
             </HBox>

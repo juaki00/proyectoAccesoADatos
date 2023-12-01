@@ -3,6 +3,7 @@ package com.example.diaryActivity;
 import com.example.DAO;
 import com.example.HibernateUtil;
 import com.example.student.Student;
+import lombok.extern.java.Log;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -10,6 +11,7 @@ import org.hibernate.query.Query;
 import java.util.ArrayList;
 import java.util.List;
 
+@Log
 public class ActivityDAO implements DAO<DiaryActivity> {
     @Override
     public List<DiaryActivity> getAll( ) {
@@ -80,6 +82,31 @@ public class ActivityDAO implements DAO<DiaryActivity> {
             e.printStackTrace();
         } finally {
             session.close();
+        }
+    }
+
+    public void addTarea(DiaryActivity diaryActivity){
+        try (org.hibernate.Session session = HibernateUtil.getSessionFactory().openSession()) {
+            //Inicio la transacción
+            Transaction transaction = session.beginTransaction();
+
+            //Creo una nueva instancia de DiaryActivity
+            DiaryActivity newActivity = new DiaryActivity();
+
+            // Establezco los valores de la nueva DiaryActivity con los valores de la DiaryActivity proporcionados
+            newActivity.setActivity_id(diaryActivity.getActivity_id());
+            newActivity.setActivity_date(diaryActivity.getActivity_date());
+            newActivity.setPractice_type(diaryActivity.getPractice_type());
+            newActivity.setTotal_hours(diaryActivity.getTotal_hours());
+            newActivity.setActivity_description(diaryActivity.getActivity_description());
+            newActivity.setObservations_incidents(diaryActivity.getObservations_incidents());
+
+            //Guardo la nueva DiaryActivity en la base de datos
+            session.persist(newActivity);
+            //Confirmo la transacción
+            transaction.commit();
+        } catch (Exception e) {
+            log.severe( "Error al insertar una nueva actividad" );
         }
     }
 

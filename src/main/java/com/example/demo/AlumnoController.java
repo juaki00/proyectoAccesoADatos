@@ -10,9 +10,9 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -48,13 +48,29 @@ public class AlumnoController implements Initializable {
     // Hago una observableList para contener los elementos (DiaryActivity) que se mostrarán en la tabla
     private ObservableList<DiaryActivity>observableListDiaryActivity;
 
+
     // Instancio de ActivityDAO para acceder a operaciones de base de datos relacionadas con DiaryActivity
     private ActivityDAO activityDAO = new ActivityDAO();
+    @FXML
 
-    @Override
+
+    /*@Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println(Sesion.getCurrentStudent());
+
+        //Selecciono el estudiante de la sesión y meto sus actividades diarias en una lista
+        List<DiaryActivity> diaryActivities = Sesion.getCurrentStudent().getDiary_activities();
+
         // Creo una lista observable para contener objetos de la clase DiaryActivity
         observableListDiaryActivity = FXCollections.observableArrayList();
+
+        //Meto el estudiante con sus actividades diarias en el observableListDiaryActivity rellenando el observable
+
+        observableListDiaryActivity.setAll(diaryActivities);
+
+        fillTable();
+
+        //Uso el observable para rellenar la tabla
         // Obtengo los valores del enumerado PracticeType y los convierto a una lista observable
         ObservableList<PracticeType> observableListPracticeType = FXCollections.observableArrayList(PracticeType.values());
 
@@ -64,20 +80,29 @@ public class AlumnoController implements Initializable {
         // Configuro el Spinner para elegir la cantidad de horas
         spHorasTotales.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 400, 0, 1));
 
-        try {
-            Student selectedStudent = Sesion.getStudentSelected();
-            if (selectedStudent != null) {
-                txtActividadRealizada.setText(selectedStudent.toString());
-                txtObservaciones.setText(selectedStudent.toString());
-            } else {
-                System.err.println("Error: El estudiante seleccionado es null.");
-            }
-        } catch (NullPointerException e) {
-            System.err.println("Error al intentar establecer el texto: " + e.getMessage());
-        }
+        //Obtengo el valor actual de la fecha
+        dpFecha.getValue();
 
         // Establezco la lista observable como el conjunto de tareas que se mostrarán en la tabla
         tvTareas.setItems(observableListDiaryActivity);
+
+        Student student = Sesion.getCurrentStudent();
+        txtActividadRealizada.setText(student.getDiary_activities().toString());
+        txtObservaciones.setText(student.getObservations());
+
+        // Creo una lista observable para contener objetos de la clase DiaryActivity
+        //observableListDiaryActivity = FXCollections.observableArrayList();
+
+        //TODO Meto las cosas en el observableListDiaryActivity
+        //TODO añadir fillTable()
+
+    }
+*/
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println("------------------------");
+        System.out.println(Sesion.getCurrentStudent());
+        System.out.println("------------------------");
 
         // Configuro las columnas de la tabla y carga de datos.
         //Configuro la columna con las Horas Totales
@@ -120,13 +145,141 @@ public class AlumnoController implements Initializable {
 
         //Obtengo el valor actual de la fecha
         dpFecha.getValue();
+
+
+        //TODO comparar con el gestor de pedidos hibernate lineas 86 y 87 seguramente añadir
+
+        // Creo una lista observable para contener objetos de la clase DiaryActivity
+        observableListDiaryActivity = FXCollections.observableArrayList();
+
+
+
+        //Cargo las tareas de los alumnos previamente cargadas en la sesión TODO revisar porque este codigo me da fallo
+        /*Sesion.setDiaryActivityPulsada((new ActivityDAO()).get(Sesion.getDiaryActivityPulsada().getActivity_id()));
+        System.out.println("CurrentStudent: "+Sesion.getCurrentStudent());
+        System.out.println("Activity Pulsada: "+ Sesion.getDiaryActivityPulsada());
+*/
+        // Creo una instancia de ActivityDAO
+        ActivityDAO activityDAO = new ActivityDAO();
+        //Le paso al observable toda la instancia del ActivityDAO
+        observableListDiaryActivity.setAll(activityDAO.getAll());
+
+        // Obtengo los valores del enumerado PracticeType y los convierto a una lista observable
+        ObservableList<PracticeType> observableListPracticeType = FXCollections.observableArrayList(PracticeType.values());
+
+        // Configuro el ComboBox con la lista de valores
+        comboTipo.setItems(observableListPracticeType);
+
+        // Configuro el Spinner para elegir la cantidad de horas
+        spHorasTotales.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 400, 0, 1));
+
+
+/*           DiaryActivity diaryActivity = Sesion.getDiaryActivityPulsada();
+            txtActividadRealizada.setText(diaryActivity.getActivity_description());
+            txtObservaciones.setText(diaryActivity.getObservations_incidents());*/
+        try {
+            //TODO REVISAR
+            DiaryActivity diaryActivity = Sesion.getDiaryActivityPulsada();
+            txtActividadRealizada.setText(diaryActivity.getActivity_description());
+            txtObservaciones.setText(diaryActivity.getObservations_incidents());
+            Student selectedStudent = Sesion.getStudentSelected();
+            if (selectedStudent != null) {
+                txtActividadRealizada.setText(selectedStudent.getObservations().toString());
+                txtObservaciones.setText(selectedStudent.toString());
+            } else {
+                System.err.println("Error: El estudiante seleccionado es null.");
+            }
+        } catch (NullPointerException e) {
+            System.err.println("Error al intentar establecer el texto: " + e.getMessage());
+        }
+
+
+
+
+        // Establezco la lista observable como el conjunto de tareas que se mostrarán en la tabla
+        tvTareas.setItems(observableListDiaryActivity);
+
     }
 
-    @javafx.fxml.FXML
+    private void fillTable( ) {
+        Student student = Sesion.getCurrentStudent();
+        ActivityDAO activityDAO = new ActivityDAO();
+        List<DiaryActivity> tareasDiarias = activityDAO.activitiesOfStudent(student);
+        activityDAO.getAll();
+
+        // Configuro las columnas de la tabla y carga de datos.
+
+        //Configuro la columna con la Fecha
+        cFecha.setCellValueFactory((fila) -> {
+            LocalDate fecha = fila.getValue().getActivity_date();
+            // Cambio al formato día/mes/año
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            // Obtengo y devuelvo el valor de Fecha formateada como un StringProperty
+            String fechaFormateada = fecha.format(formatter);
+            return new SimpleStringProperty(fechaFormateada);
+        });
+
+        //Configuro la columna con el tipo de práctica
+        cTipoPractica.setCellValueFactory((fila) -> {
+            // Obtengo y devuelvo el valor de TipoPractica como un StringProperty
+            String tipoPractica = String.valueOf(fila.getValue().getPractice_type());
+            return new SimpleStringProperty(tipoPractica);
+        });
+
+        //Configuro la columna con las Horas Totales
+        cHorasTotales.setCellValueFactory((fila) -> {
+            // Obtengo y devuelvo el valor de Total_hours como un StringProperty
+            String horasTotales = String.valueOf(fila.getValue().getTotal_hours());
+            return new SimpleStringProperty(horasTotales);
+        });
+
+        //Configuro la columna con la actividad realizada
+        cActividadRealizada.setCellValueFactory((fila) -> {
+            // Obtengo y devuelvo el valor deActividadRealizada como un StringProperty
+            String actividadRealizada = String.valueOf(fila.getValue().getActivity_description());
+            return new SimpleStringProperty(actividadRealizada);
+        });
+
+        //Configuro la columna con las observaciones
+        cObservaciones.setCellValueFactory((fila) -> {
+            // Obtengo y devuelvo el valor deActividadRealizada como un StringProperty
+            String observaciones = String.valueOf(fila.getValue().getObservations_incidents());
+            return new SimpleStringProperty(observaciones);
+        });
+
+        ObservableList<DiaryActivity> observableListDiaryActivity = FXCollections.observableArrayList();
+        observableListDiaryActivity.addAll(tareasDiarias);
+        tvTareas.setItems(observableListDiaryActivity);
+    }
+
+    @Deprecated
     public void addTarea(ActionEvent actionEvent) {
-      /*  // Suponiendo que tienes una clase Student con un método getDiaryActivities
-        Student selectedStudent = Sesion.getStudentSelected();
-        List<DiaryActivity> diaryActivities = selectedStudent.getDiary_activities();*/
+        if(dpFecha.getValue() == null){     //TODO asegurarme que no entre nada que no sea una fecha
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Tienes que introducir una fecha");
+            alert.show();
+        }else if(spHorasTotales.getValue()<1){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("El tiempo mínimo de la actividad realizada debe ser de al menos una hora");
+            alert.show();
+        } else if(txtActividadRealizada.getText().equals("")){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Tienes que introducir la actividad realizada");
+            alert.show();
+        } else {
+            //TODO REVISAR
+            DiaryActivity diaryActivity = new DiaryActivity( );
+            diaryActivity.setActivity_id(Sesion.getCurrentStudent().getStudent_id());
+            diaryActivity.setActivity_date(dpFecha.getValue());
+            diaryActivity.setPractice_type(comboTipo.getValue());
+            diaryActivity.setTotal_hours(spHorasTotales.getValue());
+            diaryActivity.setActivity_description(txtActividadRealizada.getText());
+            diaryActivity.setObservations_incidents(txtObservaciones.getText());
+            activityDAO.addTarea(diaryActivity);
+            fillTable();
+        }
+
+      try{
         // Obtengo los valores de los controles
         PracticeType tipoPractica = comboTipo.getValue();
         Integer horasTotales = spHorasTotales.getValue();
@@ -142,6 +295,9 @@ public class AlumnoController implements Initializable {
         nuevaTarea.setActivity_description(actividadRealizada);
         nuevaTarea.setObservations_incidents(observaciones);
 
+      }catch (Exception e){
+          e.printStackTrace();
+      }
     }
 
 
@@ -179,9 +335,10 @@ public class AlumnoController implements Initializable {
     @javafx.fxml.FXML
     public void logOut(ActionEvent actionEvent) {
         // Establezco al usuario en la sesión como null, indicando que no hay usuario activo.
-        Sesion.setStudentSelected(null);
+        Sesion.logOut();
 
         // Cargo el FXML de la pantalla de inicio de sesión
-        App.loadFXML("login.fxml", "Login");
+        App.loadFXML("login-view.fxml", "Login");
     }
+
 }
