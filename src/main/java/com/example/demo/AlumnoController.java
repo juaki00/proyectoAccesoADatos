@@ -20,6 +20,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static com.example.diaryActivity.PracticeType.DUAL;
+
 public class AlumnoController implements Initializable {
     @javafx.fxml.FXML
     private ComboBox<PracticeType> comboTipo;
@@ -48,13 +50,11 @@ public class AlumnoController implements Initializable {
     // Hago una observableList para contener los elementos (DiaryActivity) que se mostrarán en la tabla
     private ObservableList<DiaryActivity>observableListDiaryActivity;
 
-
     // Instancio de ActivityDAO para acceder a operaciones de base de datos relacionadas con DiaryActivity
     private ActivityDAO activityDAO = new ActivityDAO();
-    @FXML
 
 
-    /*@Override
+   /* *//*@Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println(Sesion.getCurrentStudent());
 
@@ -98,6 +98,7 @@ public class AlumnoController implements Initializable {
 
     }
 */
+    @Deprecated
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("------------------------");
@@ -143,6 +144,22 @@ public class AlumnoController implements Initializable {
             return new SimpleStringProperty(observaciones);
         });
 
+        try {
+            //TODO REVISAR
+            DiaryActivity diaryActivity = Sesion.getDiaryActivityPulsada();
+            txtActividadRealizada.setText(diaryActivity.getActivity_description());
+            txtObservaciones.setText(diaryActivity.getObservations_incidents());
+            Student selectedStudent = Sesion.getStudentSelected();
+            if (selectedStudent != null) {
+                txtActividadRealizada.setText(selectedStudent.getObservations().toString());
+                txtObservaciones.setText(selectedStudent.toString());
+            } else {
+                System.err.println("Error: El estudiante seleccionado es null.");
+            }
+        } catch (NullPointerException e) {
+            System.err.println("Error al intentar establecer el texto: " + e.getMessage());
+        }
+
         //Obtengo el valor actual de la fecha
         dpFecha.getValue();
 
@@ -160,15 +177,20 @@ public class AlumnoController implements Initializable {
         System.out.println("Activity Pulsada: "+ Sesion.getDiaryActivityPulsada());
 */
         // Creo una instancia de ActivityDAO
-        ActivityDAO activityDAO = new ActivityDAO();
+        //ActivityDAO activityDAO = new ActivityDAO();
         //Le paso al observable toda la instancia del ActivityDAO
+       // observableListDiaryActivity.setAll(Sesion.getCurrentStudent().getDiary_activities());
         observableListDiaryActivity.setAll(activityDAO.getAll());
 
         // Obtengo los valores del enumerado PracticeType y los convierto a una lista observable
-        ObservableList<PracticeType> observableListPracticeType = FXCollections.observableArrayList(PracticeType.values());
+        ObservableList<PracticeType> observableListPracticeType = FXCollections.observableArrayList();
+
+        observableListPracticeType.setAll(PracticeType.DUAL, PracticeType.FCT);
 
         // Configuro el ComboBox con la lista de valores
         comboTipo.setItems(observableListPracticeType);
+
+        comboTipo.getSelectionModel().selectFirst();
 
         // Configuro el Spinner para elegir la cantidad de horas
         spHorasTotales.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 400, 0, 1));
@@ -177,79 +199,16 @@ public class AlumnoController implements Initializable {
 /*           DiaryActivity diaryActivity = Sesion.getDiaryActivityPulsada();
             txtActividadRealizada.setText(diaryActivity.getActivity_description());
             txtObservaciones.setText(diaryActivity.getObservations_incidents());*/
-        try {
-            //TODO REVISAR
-            DiaryActivity diaryActivity = Sesion.getDiaryActivityPulsada();
-            txtActividadRealizada.setText(diaryActivity.getActivity_description());
-            txtObservaciones.setText(diaryActivity.getObservations_incidents());
-            Student selectedStudent = Sesion.getStudentSelected();
-            if (selectedStudent != null) {
-                txtActividadRealizada.setText(selectedStudent.getObservations().toString());
-                txtObservaciones.setText(selectedStudent.toString());
-            } else {
-                System.err.println("Error: El estudiante seleccionado es null.");
-            }
-        } catch (NullPointerException e) {
-            System.err.println("Error al intentar establecer el texto: " + e.getMessage());
-        }
-
 
 
 
         // Establezco la lista observable como el conjunto de tareas que se mostrarán en la tabla
         tvTareas.setItems(observableListDiaryActivity);
 
-    }
+        //TODO traigo lo    ue está en la base de datos
+       // activityDAO.update( observableListDiaryActivity);
 
-    private void fillTable( ) {
-        Student student = Sesion.getCurrentStudent();
-        ActivityDAO activityDAO = new ActivityDAO();
-        List<DiaryActivity> tareasDiarias = activityDAO.activitiesOfStudent(student);
-        activityDAO.getAll();
 
-        // Configuro las columnas de la tabla y carga de datos.
-
-        //Configuro la columna con la Fecha
-        cFecha.setCellValueFactory((fila) -> {
-            LocalDate fecha = fila.getValue().getActivity_date();
-            // Cambio al formato día/mes/año
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            // Obtengo y devuelvo el valor de Fecha formateada como un StringProperty
-            String fechaFormateada = fecha.format(formatter);
-            return new SimpleStringProperty(fechaFormateada);
-        });
-
-        //Configuro la columna con el tipo de práctica
-        cTipoPractica.setCellValueFactory((fila) -> {
-            // Obtengo y devuelvo el valor de TipoPractica como un StringProperty
-            String tipoPractica = String.valueOf(fila.getValue().getPractice_type());
-            return new SimpleStringProperty(tipoPractica);
-        });
-
-        //Configuro la columna con las Horas Totales
-        cHorasTotales.setCellValueFactory((fila) -> {
-            // Obtengo y devuelvo el valor de Total_hours como un StringProperty
-            String horasTotales = String.valueOf(fila.getValue().getTotal_hours());
-            return new SimpleStringProperty(horasTotales);
-        });
-
-        //Configuro la columna con la actividad realizada
-        cActividadRealizada.setCellValueFactory((fila) -> {
-            // Obtengo y devuelvo el valor deActividadRealizada como un StringProperty
-            String actividadRealizada = String.valueOf(fila.getValue().getActivity_description());
-            return new SimpleStringProperty(actividadRealizada);
-        });
-
-        //Configuro la columna con las observaciones
-        cObservaciones.setCellValueFactory((fila) -> {
-            // Obtengo y devuelvo el valor deActividadRealizada como un StringProperty
-            String observaciones = String.valueOf(fila.getValue().getObservations_incidents());
-            return new SimpleStringProperty(observaciones);
-        });
-
-        ObservableList<DiaryActivity> observableListDiaryActivity = FXCollections.observableArrayList();
-        observableListDiaryActivity.addAll(tareasDiarias);
-        tvTareas.setItems(observableListDiaryActivity);
     }
 
     @Deprecated
@@ -273,10 +232,14 @@ public class AlumnoController implements Initializable {
             diaryActivity.setActivity_date(dpFecha.getValue());
             diaryActivity.setPractice_type(comboTipo.getValue());
             diaryActivity.setTotal_hours(spHorasTotales.getValue());
+            diaryActivity.setStudent(Sesion.getCurrentStudent());
             diaryActivity.setActivity_description(txtActividadRealizada.getText());
             diaryActivity.setObservations_incidents(txtObservaciones.getText());
-            activityDAO.addTarea(diaryActivity);
-            fillTable();
+            activityDAO.save(diaryActivity);
+
+            observableListDiaryActivity.setAll(activityDAO.getAll());
+            tvTareas.setItems(observableListDiaryActivity);
+
         }
 
       try{

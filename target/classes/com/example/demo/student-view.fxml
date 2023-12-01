@@ -33,7 +33,7 @@
                         <HBox prefHeight="20.0" prefWidth="200.0" spacing="5.0">
                            <children>
                               <Label id="tipo" layoutX="90.0" layoutY="25.0" prefHeight="25.0" prefWidth="90.0" text="Tipo" />
-                              <ComboBox fx:id="comboTipo" prefWidth="100.0" promptText="Dual">
+                              <ComboBox fx:id="comboTipo" prefWidth="100.0">
                                  <items>
                                     <FXCollections fx:factory="observableArrayList">
                                        <String fx:value="Dual" />
