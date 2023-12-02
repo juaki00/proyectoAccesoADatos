@@ -85,7 +85,7 @@ public class ActivityDAO implements DAO<DiaryActivity> {
         }
     }
 
-    public void addTarea(DiaryActivity diaryActivity){
+    /*public void addTarea(DiaryActivity diaryActivity){
         try (org.hibernate.Session session = HibernateUtil.getSessionFactory().openSession()) {
             //Inicio la transacción
             Transaction transaction = session.beginTransaction();
@@ -108,7 +108,7 @@ public class ActivityDAO implements DAO<DiaryActivity> {
         } catch (Exception e) {
             log.severe( "Error al insertar una nueva actividad" );
         }
-    }
+    }*/
 
     public void delete(DiaryActivity data) {
         HibernateUtil.getSessionFactory().inTransaction(session -> {

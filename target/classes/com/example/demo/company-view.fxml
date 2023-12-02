@@ -144,9 +144,14 @@
    <bottom>
       <HBox prefHeight="43.0" prefWidth="880.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnAddCompany" mnemonicParsing="false" onAction="#insertCompany" text="Añadir a la tabla">
+            <Button fx:id="btnAddCompany" mnemonicParsing="false" onAction="#insertCompany" prefHeight="25.0" prefWidth="143.0" text="Añadir a la tabla">
                <HBox.margin>
                   <Insets left="20.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btnCompanyDetails" mnemonicParsing="false" onAction="#companyDetails" prefHeight="25.0" prefWidth="142.0" text="Editar empresa">
+               <HBox.margin>
+                  <Insets left="25.0" />
                </HBox.margin>
             </Button>
             <HBox alignment="CENTER" prefHeight="25.0" prefWidth="670.0">
