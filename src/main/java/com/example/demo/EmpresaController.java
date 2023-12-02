@@ -130,7 +130,7 @@ public class EmpresaController implements Initializable {
         alert.show();
     }else if (!validatePhone(txtNumberPhone.getText())) {
         Alert alert = new Alert( Alert.AlertType.WARNING );
-        alert.setContentText( "Numero de teléfono introducido no válido (9 dígitos necesarios)" );
+        alert.setContentText( "Numero de teléfono introducido no válido (9 dígitos)" );
         alert.show();
     } else if (!validateEmail(txtEmail.getText())) {
         Alert alert = new Alert( Alert.AlertType.WARNING );
@@ -178,7 +178,7 @@ public class EmpresaController implements Initializable {
         boolean salida = true;
         try {
             Integer.parseInt(text);
-            if (text.length()!=10){
+            if (text.length()!=9){
                 salida=false;
             }
         } catch (NumberFormatException excepcion) {
