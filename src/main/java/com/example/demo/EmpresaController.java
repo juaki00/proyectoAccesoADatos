@@ -23,7 +23,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class EmpresaController implements Initializable {
+
     CompanyDAO companyDAO;
+    @FXML
+    public Button btnCompanyDetails;
     @FXML
     public Button btnAddCompany;
     @FXML
@@ -187,5 +190,8 @@ public class EmpresaController implements Initializable {
         return salida;
     }
 
-
+    @FXML
+    public void companyDetails(ActionEvent actionEvent) {
+        if (Sesion.getCompanySelected() != null) App.loadFXML("edit-company-view.fxml" , "Editar empresa" );
+    }
 }
