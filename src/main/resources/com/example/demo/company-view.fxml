@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="712.0" prefWidth="949.0" styleClass="ventana" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.EmpresaController">
+<BorderPane prefHeight="712.0" prefWidth="949.0" styleClass="ventana" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.EmpresaController">
    <center>
       <SplitPane dividerPositions="0.5" prefHeight="596.0" prefWidth="880.0" styleClass="transparente" BorderPane.alignment="CENTER">
          <items>
@@ -33,7 +33,7 @@
                         <HBox alignment="CENTER" prefHeight="38.0" prefWidth="280.0">
                            <children>
                               <Label text="Nombre" />
-                              <TextField>
+                              <TextField fx:id="txtNameCompany">
                                  <HBox.margin>
                                     <Insets left="20.0" />
                                  </HBox.margin>
@@ -47,7 +47,7 @@
                         <HBox alignment="CENTER" prefHeight="51.0" prefWidth="280.0">
                            <children>
                               <Label text="Teléfono" />
-                              <TextField alignment="CENTER">
+                              <TextField fx:id="txtNumberPhone" alignment="CENTER">
                                  <HBox.margin>
                                     <Insets left="20.0" />
                                  </HBox.margin>
@@ -59,7 +59,7 @@
                   <HBox alignment="CENTER" prefHeight="36.0" prefWidth="280.0">
                      <children>
                         <Label text="Email" />
-                        <TextField>
+                        <TextField fx:id="txtEmail">
                            <HBox.margin>
                               <Insets left="35.0" />
                            </HBox.margin>
@@ -69,7 +69,7 @@
                   <HBox prefHeight="33.0" prefWidth="280.0">
                      <children>
                         <Label text="Responsable" />
-                        <TextField>
+                        <TextField fx:id="txtTutor">
                            <HBox.margin>
                               <Insets left="30.0" />
                            </HBox.margin>
@@ -87,7 +87,7 @@
                   <FlowPane hgap="20.0" />
                   <ScrollPane prefHeight="133.0" prefWidth="213.0">
                      <content>
-                        <TextArea prefHeight="323.0" prefWidth="273.0" />
+                        <TextArea fx:id="txtObservations" prefHeight="323.0" prefWidth="273.0" />
                      </content>
                   </ScrollPane>
                   <FlowPane hgap="20.0" />
@@ -96,13 +96,13 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </VBox>
-            <TableView id="tabla" fx:id="tablaEmpresa" onMouseClicked="#click" prefHeight="500.0" prefWidth="500.0">
+            <TableView id="tabla" fx:id="companyTable" onMouseClicked="#click" prefHeight="500.0" prefWidth="500.0">
                <columns>
-                  <TableColumn prefWidth="75.0" text="Nombre empresa" />
-                  <TableColumn prefWidth="75.0" text="Email" />
-                  <TableColumn prefWidth="75.0" text="Responsable de empresa" />
-                  <TableColumn prefWidth="75.0" text="Observaciones" />
-                  <TableColumn prefWidth="75.0" text="Teléfono" />
+                  <TableColumn fx:id="cNameCompany" prefWidth="75.0" text="Nombre empresa" />
+                  <TableColumn fx:id="cEmail" prefWidth="75.0" text="Email" />
+                  <TableColumn fx:id="cTutor" prefWidth="75.0" text="Responsable de empresa" />
+                  <TableColumn fx:id="cObservations" prefWidth="75.0" text="Observaciones" />
+                  <TableColumn fx:id="cNumberPhone" prefWidth="75.0" text="Teléfono" />
                </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -144,9 +144,14 @@
    <bottom>
       <HBox prefHeight="43.0" prefWidth="880.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnAñadirEmpresa" mnemonicParsing="false" onAction="#insertarEmpresa" text="Añadir a la tabla">
+            <Button fx:id="btnAddCompany" mnemonicParsing="false" onAction="#insertCompany" prefHeight="25.0" prefWidth="143.0" text="Añadir a la tabla">
                <HBox.margin>
                   <Insets left="20.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btnCompanyDetails" mnemonicParsing="false" onAction="#companyDetails" prefHeight="25.0" prefWidth="142.0" text="Editar empresa">
+               <HBox.margin>
+                  <Insets left="25.0" />
                </HBox.margin>
             </Button>
             <HBox alignment="CENTER" prefHeight="25.0" prefWidth="670.0">

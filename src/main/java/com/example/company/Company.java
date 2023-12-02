@@ -27,4 +27,16 @@ public class Company {
     @OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
     private List<Student> student;
 
+    @Override
+    public String toString() {
+        return "Company{" +
+                "company_id=" + company_id +
+                ", company_name='" + company_name + '\'' +
+                ", phone_number='" + phone_number + '\'' +
+                ", email='" + email + '\'' +
+                ", company_contact='" + company_contact + '\'' +
+                ", incidents_observations='" + incidents_observations + '\'' +
+                ", student=" + student +
+                '}';
+    }
 }
