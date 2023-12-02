@@ -113,9 +113,9 @@ public class ActivityDAO implements DAO<DiaryActivity> {
     public void delete(DiaryActivity data) {
         HibernateUtil.getSessionFactory().inTransaction(session -> {
             // Obtengo el objeto DiaryActivity a partir de su id
-            Student student = session.get(Student.class, data.getActivity_id());
+            DiaryActivity activity= session.get(DiaryActivity.class, data.getActivity_id());
             // Elimino el objeto DiaryActivity de la base de datos
-            session.remove(student);
+            session.remove(activity);
         });
     }
 

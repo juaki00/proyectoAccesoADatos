@@ -226,7 +226,6 @@ public class AlumnoController implements Initializable {
             alert.setContentText("Tienes que introducir la actividad realizada");
             alert.show();
         } else {
-            //TODO REVISAR
             DiaryActivity diaryActivity = new DiaryActivity( );
             diaryActivity.setActivity_id(Sesion.getCurrentStudent().getStudent_id());
             diaryActivity.setActivity_date(dpFecha.getValue());
@@ -261,10 +260,13 @@ public class AlumnoController implements Initializable {
       }catch (Exception e){
           e.printStackTrace();
       }
+
+        observableListDiaryActivity.setAll(activityDAO.getAll());
+        tvTareas.setItems(observableListDiaryActivity);
     }
 
 
-    @javafx.fxml.FXML
+    /*@javafx.fxml.FXML
     public void delete(ActionEvent actionEvent) {
         //Obtengo la tarea seleccionada de la tabla
         DiaryActivity tareaSeleccionada = tvTareas.getSelectionModel().getSelectedItem();
@@ -274,7 +276,7 @@ public class AlumnoController implements Initializable {
             // Crea un cuadro de diálogo de confirmación
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setContentText("¿De verdad que quieres borrar la tarea: " + tareaSeleccionada.getActivity_id() +
-                    " del producto " + tareaSeleccionada.getStudent().getStudent_id() + "?");
+                    " del alumno " + tareaSeleccionada.getStudent().getStudent_id() + "?");
 
             // Muestra el cuadro de diálogo y espera la respuesta del usuario
             var result = alert.showAndWait().get();
@@ -293,7 +295,39 @@ public class AlumnoController implements Initializable {
             alert.setContentText("Selecciona la tarea a eliminar.");
             alert.showAndWait();
         }
+    }*/
+
+    @FXML
+    public void delete(ActionEvent actionEvent) {
+        // Obtengo la tarea seleccionada
+        DiaryActivity tareaSeleccionada = tvTareas.getSelectionModel().getSelectedItem();
+
+        if (tareaSeleccionada != null) {
+            // Creo un cuadro de diálogo de confirmación
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setContentText("¿De verdad que quieres borrar la tarea: " + tareaSeleccionada.getActivity_id() + "?");
+
+            // Muestro el cuadro de diálogo y espero la respuesta del usuario
+            var result = alert.showAndWait().get();
+
+            // Si el usuario confirma la eliminación
+            if (result.getButtonData() == ButtonBar.ButtonData.OK_DONE) {
+                // Me aseguro que el ActivityDAO se inicialice correctamente
+                ActivityDAO activityDAO = new ActivityDAO();
+                // Elimino la actividad de la base de datos usando una instancia de ActivityDAO
+                activityDAO.delete(tareaSeleccionada);
+
+                // Elimina el pedido de la lista observable de pedidos.
+                observableListDiaryActivity.remove(tareaSeleccionada);
+            }
+        } else {
+            // Si no se selecciona ninguna tarea muestro un cuadro de diálogo de advertencia
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Por favor, selecciona la tarea a eliminar.");
+            alert.showAndWait();
+        }
     }
+
 
     @javafx.fxml.FXML
     public void logOut(ActionEvent actionEvent) {
