@@ -4,6 +4,7 @@ import com.example.App;
 import com.example.Sesion;
 import com.example.company.Company;
 import com.example.company.CompanyDAO;
+import com.example.diaryActivity.DiaryActivity;
 import com.example.teacher.Teacher;
 import com.example.teacher.TeacherDAO;
 import javafx.beans.property.SimpleStringProperty;
@@ -14,6 +15,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -77,6 +79,16 @@ public class EmpresaController implements Initializable {
         companyTable.getSelectionModel( ).selectedItemProperty( ).addListener( ( observableValue , company , t1 ) -> {
             Sesion.setCompanySelected( t1 );
         } );
+
+        companyTable.setOnMouseClicked(event -> {
+            if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
+                Company selectedCompany = companyTable.getSelectionModel().getSelectedItem();
+                if (selectedCompany != null) {
+                    Sesion.setCompanySelected(selectedCompany);
+                    App.loadFXML("edit-company-view.fxml", "Edición de empresa");
+                }
+            }
+        });
 
     }
 
@@ -156,11 +168,12 @@ public class EmpresaController implements Initializable {
         newCompany.setPhone_number(txtNumberPhone.getText());
         newCompany.setIncidents_observations(txtObservations.getText());
         companyDAO.insertCompany(newCompany);
+        comboEmpresas.getItems().add( newCompany.getCompany_name() );
         fillTable( );
     }
     }
 
-    private boolean validateEmail( String text ) {
+    protected boolean validateEmail( String text ) {
         boolean salida;
         // Patrón para validar el email
         Pattern pattern = Pattern
@@ -177,7 +190,7 @@ public class EmpresaController implements Initializable {
         return salida;
     }
 
-    private boolean validatePhone( String text ) {
+    protected boolean validatePhone( String text ) {
         boolean salida = true;
         try {
             Integer.parseInt(text);

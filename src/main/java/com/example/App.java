@@ -24,10 +24,11 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         myStage = stage;
         FXMLLoader fxmlLoader = new FXMLLoader( App.class.getResource( "demo/login-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 900, 800);
+        Scene scene = new Scene(fxmlLoader.load(), 360, 380);
         stage.setTitle("Login");
         stage.setScene(scene);
         stage.show();
+        stage.setResizable(false);
     }
 
     public static void main(String[] args) {

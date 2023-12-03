@@ -60,4 +60,25 @@ public class CompanyDAO implements DAO<Company> {
             log.severe( "Error al insertar un nuevo item" );
         }
     }
+
+    public void updateCompany( Company company ){
+        try(Session s = HibernateUtil.getSessionFactory().openSession()){
+            Transaction t = s.beginTransaction();
+            Company newCompany = s.get(Company.class, company.getCompany_id());
+
+            newCompany.setCompany_name( company.getCompany_name() );
+            newCompany.setCompany_contact(company.getCompany_contact());
+            newCompany.setEmail(company.getEmail());
+            newCompany.setPhone_number(company.getPhone_number());
+            newCompany.setIncidents_observations(company.getIncidents_observations());
+            t.commit();
+        }
+    }
+
+    public void deleteCompany( Company companySelected ) {
+        HibernateUtil.getSessionFactory().inTransaction(session -> {
+            Company c = session.get(Company.class, companySelected.getCompany_id());
+            session.remove(c);
+        });
+    }
 }

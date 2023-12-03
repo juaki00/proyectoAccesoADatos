@@ -134,8 +134,8 @@ public class TeacherDAO implements DAO<Teacher> {
         Teacher result = null;
 
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
-            Query<Teacher> q = session.createQuery("from Teacher where first_name=:fn and access_password=:p", Teacher.class);
-            q.setParameter("fn",user);
+            Query<Teacher> q = session.createQuery("from Teacher where email_address=:ea and access_password=:p", Teacher.class);
+            q.setParameter("ea",user);
             q.setParameter("p",pass);
 
             try {
