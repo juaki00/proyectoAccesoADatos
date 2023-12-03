@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -58,7 +59,7 @@ public class AlumnoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println(Sesion.getCurrentStudent());
-        System.out.println("-----------------------------------------------------------------------------------------------------------");
+        System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 
         // Configuro las columnas de la tabla y carga de datos.
         //Configuro la columna con las Horas Totales
@@ -99,23 +100,18 @@ public class AlumnoController implements Initializable {
             return new SimpleStringProperty(observaciones);
         });
 
-        try {
-            DiaryActivity diaryActivity = Sesion.getDiaryActivityPulsada();
-            txtActividadRealizada.setText(diaryActivity.getActivity_description());
-            txtObservaciones.setText(diaryActivity.getObservations_incidents());
-            Student selectedStudent = Sesion.getStudentSelected();
-            if (selectedStudent != null) {
-                txtActividadRealizada.setText(selectedStudent.getObservations().toString());
-                txtObservaciones.setText(selectedStudent.toString());
-            } else {
-                System.err.println("Error: El estudiante seleccionado es null.");
-            }
-        } catch (NullPointerException e) {
-            System.err.println("Error al intentar establecer el texto: " + e.getMessage());
+        Student selectedStudent = Sesion.getStudentSelected();
+        if (selectedStudent != null) {
+            txtActividadRealizada.setText(selectedStudent.getObservations().toString());
+            txtObservaciones.setText(selectedStudent.toString());
+        } else {
+            System.err.println("Error: El estudiante seleccionado es null.");
         }
+
 
         //Obtengo el valor actual de la fecha
         dpFecha.getValue();
+        //dpFecha.setValue(dpFecha.getValue());
 
         // Creo una lista observable para contener objetos de la clase DiaryActivity
         observableListDiaryActivity = FXCollections.observableArrayList();
@@ -137,6 +133,24 @@ public class AlumnoController implements Initializable {
 
         // Establezco la lista observable como el conjunto de tareas que se mostrarán en la tabla
         tvTareas.setItems(observableListDiaryActivity);
+
+
+        // Cuando se selecciona una fila, verifica que el nuevo elemento (t1) no sea nulo y, en ese caso, establece la atarea pulsada en la clase Sesion con la actividad asociada a la fila seleccionada
+        tvTareas.getSelectionModel().selectedItemProperty().addListener((observableValue, tarea, t1) -> {
+            if (t1 != null) Sesion.setDiaryActivityPulsada(t1);
+        });
+
+        // Si se hace doble clic en una fila, verifica que la fila seleccionada no sea nula, establece la tarea pulsada en la sesión y carga la vista de detalles
+        tvTareas.setOnMouseClicked(event -> {
+            if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
+                DiaryActivity selectedPedido = tvTareas.getSelectionModel().getSelectedItem();
+                if (selectedPedido != null) {
+                    // Establece el pedido seleccionado en la sesión y carga la vista de detalles.
+                    Sesion.setDiaryActivityPulsada(selectedPedido);
+                    App.loadFXML("edit-activity-view.fxml", "Editar tareas");
+                }
+            }
+        });
     }
 
     @Deprecated
