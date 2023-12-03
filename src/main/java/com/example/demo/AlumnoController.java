@@ -123,13 +123,12 @@ public class AlumnoController implements Initializable {
         ObservableList<PracticeType> observableListPracticeType = FXCollections.observableArrayList();
         observableListPracticeType.setAll(PracticeType.DUAL, PracticeType.FCT);
 
-        // Configuro el ComboBox con la lista de valores
+        // Configuro el ComboBox con la lista de valores y selecciono el primero de ellos por defecto
         comboTipo.setItems(observableListPracticeType);
-
         comboTipo.getSelectionModel().selectFirst();
 
         // Configuro el Spinner para elegir la cantidad de horas
-        spHorasTotales.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 400, 0, 1));
+        spHorasTotales.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 24, 0, 1));
 
         // Establezco la lista observable como el conjunto de tareas que se mostrarán en la tabla
         tvTareas.setItems(observableListDiaryActivity);
@@ -147,7 +146,7 @@ public class AlumnoController implements Initializable {
                 if (selectedPedido != null) {
                     // Establece el pedido seleccionado en la sesión y carga la vista de detalles.
                     Sesion.setDiaryActivityPulsada(selectedPedido);
-                    App.loadFXML("edit-activity-view.fxml", "Editar tareas");
+                    App.loadFXML("edit-activity-view.fxml", "Edición de la tarea");
                 }
             }
         });
@@ -238,7 +237,6 @@ public class AlumnoController implements Initializable {
             alert.showAndWait();
         }
     }
-
 
     @javafx.fxml.FXML
     public void logOut(ActionEvent actionEvent) {
