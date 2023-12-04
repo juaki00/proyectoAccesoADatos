@@ -17,11 +17,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="743.0" prefWidth="987.0" styleClass="background" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.ProfesorController">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="743.0" prefWidth="900.0" styleClass="ventana" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.ProfesorController">
    <center>
-      <SplitPane dividerPositions="0.5" minHeight="-Infinity" minWidth="-Infinity" prefHeight="596.0" prefWidth="880.0" styleClass="tableStyle" BorderPane.alignment="CENTER">
+      <SplitPane dividerPositions="0.5" minHeight="-Infinity" minWidth="-Infinity" prefHeight="596.0" prefWidth="880.0" styleClass="transparente" BorderPane.alignment="CENTER">
          <items>
-            <VBox alignment="TOP_CENTER" blendMode="MULTIPLY" maxWidth="300.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="100.0" spacing="10.0" styleClass="tableStyle">
+            <VBox alignment="TOP_CENTER" blendMode="MULTIPLY" maxWidth="300.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="100.0" spacing="10.0" styleClass="transparente">
                <children>
                   <Label text="Datos Alumnos">
                      <font>
@@ -124,12 +124,12 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </VBox>
-            <TableView id="tableStyle" fx:id="studentsTable">
+            <TableView id="tabla" fx:id="studentsTable" prefHeight="500.0" prefWidth="500.0">
                <columns>
                   <TableColumn fx:id="cName" prefWidth="75.0" text="Nombre" />
                   <TableColumn fx:id="cLastName" prefWidth="75.0" text="Apellidos" />
-                  <TableColumn fx:id="cDNI" prefWidth="62.399993896484375" text="DNI" />
-                  <TableColumn fx:id="cFechaNac" prefWidth="84.00007629394531" text="Fecha_Nac" />
+                  <TableColumn fx:id="cDNI" prefWidth="75.0" text="DNI" />
+                  <TableColumn fx:id="cFechaNac" prefWidth="75.0" text="Fecha_Nac" />
                   <TableColumn fx:id="cEmail" prefWidth="75.0" text="Email" />
                   <TableColumn fx:id="cCompany" prefWidth="75.0" text="Empresa" />
                   <TableColumn fx:id="cDual" prefWidth="75.0" text="Horas Dual" />
@@ -149,50 +149,29 @@
    <top>
       <HBox prefHeight="30.0" prefWidth="880.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="labelBienvenidaProfesor" styleClass="title" text="Tutor: Francisco Romero">
-               <font>
-                  <Font size="24.0" />
-               </font>
-               <HBox.margin>
-                  <Insets bottom="10.0" left="35.0" right="35.0" top="10.0" />
-               </HBox.margin>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding></Label>
+            <Label fx:id="labelBienvenidaProfesor" text="Profesor" />
          </children>
       </HBox>
    </top>
    <bottom>
-      <HBox BorderPane.alignment="CENTER">
+      <HBox prefHeight="43.0" prefWidth="880.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnAñadir" mnemonicParsing="false" onAction="#insertStudent" prefHeight="38.0" prefWidth="165.0" text="Añadir a la tabla">
+            <Button fx:id="btnAñadir" mnemonicParsing="false" onAction="#insertStudent" text="Añadir a la tabla">
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin>
-               <padding>
-                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
-               </padding>
             </Button>
             <HBox alignment="CENTER" prefHeight="25.0" prefWidth="670.0">
                <children>
-                  <Button fx:id="btnVerAlumno" mnemonicParsing="false" onAction="#studentDetails" text="Ver alumno">
-                     <padding>
-                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
-                     </padding></Button>
+                  <Button fx:id="btnVerAlumno" mnemonicParsing="false" onAction="#studentDetails" text="Ver alumno" />
                   <Button fx:id="btnVerEmpresas" mnemonicParsing="false" onAction="#companies" text="Ver empresas">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
-                     <padding>
-                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
-                     </padding>
                   </Button>
                </children>
             </HBox>
-            <Button fx:id="btnLogOut" mnemonicParsing="false" onAction="#logout" prefHeight="38.0" prefWidth="117.0" styleClass="buttonLogout" text="LogOut">
-               <padding>
-                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
-               </padding></Button>
+            <Button fx:id="btnLogOut" mnemonicParsing="false" onAction="#logout" style="-fx-background-color: red;" text="LogOut" />
          </children>
          <BorderPane.margin>
             <Insets />

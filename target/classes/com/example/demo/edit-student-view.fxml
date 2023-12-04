@@ -13,11 +13,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="566.0" prefWidth="892.0" styleClass="background" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.EditarAlumnoController">
+<BorderPane prefHeight="566.0" prefWidth="892.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.EditarAlumnoController">
    <center>
       <VBox prefHeight="536.0" prefWidth="881.0">
          <children>
-            <FlowPane hgap="30.0" prefHeight="200.0" prefWidth="200.0" styleClass="tableStyle" vgap="30.0">
+            <FlowPane hgap="30.0" prefHeight="200.0" prefWidth="200.0" vgap="30.0">
                <children>
                   <VBox prefHeight="200.0" prefWidth="100.0" spacing="55.0">
                      <children>
@@ -55,42 +55,27 @@
                      <children>
                         <FlowPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <TextField fx:id="textName">
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding></TextField>
+                              <TextField fx:id="textName" />
                            </children>
                         </FlowPane>
                         <FlowPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <TextField fx:id="textLastName">
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding></TextField>
+                              <TextField fx:id="textLastName" />
                            </children>
                         </FlowPane>
                         <FlowPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <TextField fx:id="textDNI">
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding></TextField>
+                              <TextField fx:id="textDNI" />
                            </children>
                         </FlowPane>
                         <FlowPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <TextField fx:id="textDate">
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding></TextField>
+                              <TextField fx:id="textDate" />
                            </children>
                         </FlowPane>
                         <FlowPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <TextField fx:id="textEmail">
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding></TextField>
+                              <TextField fx:id="textEmail" />
                            </children>
                         </FlowPane>
                      </children>
@@ -154,11 +139,8 @@
                   </VBox>
                </children>
                <padding>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                  <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
                </padding>
-               <VBox.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </VBox.margin>
             </FlowPane>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                <children>
@@ -197,7 +179,7 @@
                   </Button>
                   <HBox alignment="CENTER_RIGHT" prefHeight="62.0" prefWidth="478.0">
                      <children>
-                        <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#logOut" styleClass="buttonLogout, button" text="Logout">
+                        <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#logOut" text="Logout">
                            <HBox.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </HBox.margin>
@@ -229,16 +211,13 @@
       </Label>
    </bottom>
    <top>
-      <Label styleClass="title" text="Tutor: Francisco Romero" BorderPane.alignment="CENTER_LEFT">
+      <Label text="Tutor: Francisco Romero" BorderPane.alignment="CENTER_LEFT">
          <BorderPane.margin>
-            <Insets bottom="10.0" left="35.0" right="35.0" top="10.0" />
+            <Insets bottom="35.0" left="35.0" right="35.0" top="35.0" />
          </BorderPane.margin>
          <font>
-            <Font name="Segoe UI Semibold" size="24.0" />
+            <Font size="24.0" />
          </font>
-         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </padding>
       </Label>
    </top>
 </BorderPane>
