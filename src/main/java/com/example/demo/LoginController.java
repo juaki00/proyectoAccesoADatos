@@ -90,6 +90,7 @@ public class LoginController implements Initializable {
     }
 
     public void register(ActionEvent actionEvent) {
+        App.loadFXML("register-view.fxml","Register");
     }
 
 

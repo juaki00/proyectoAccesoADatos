@@ -71,14 +71,15 @@ public class EditarCompanyController implements Initializable {
 
     @FXML
     public void deleteCompany(ActionEvent actionEvent) {
-
-        Alert alert = new Alert( Alert.AlertType.CONFIRMATION );
-        alert.setContentText( "¿Deseas borrar la empresa " + Sesion.getCompanySelected().getCompany_name() + "?" );
-        var result = alert.showAndWait( ).get( );
-        if (result.getButtonData( ) == ButtonBar.ButtonData.OK_DONE) {
-            companyDAO.deleteCompany( Sesion.getCompanySelected() );
-            back( );
-
+        if (Sesion.getCompanySelected() != null) {
+            Alert alert = new Alert( Alert.AlertType.CONFIRMATION );
+            alert.setContentText( "¿Deseas borrar la empresa " + Sesion.getCompanySelected().getCompany_name() + "?" );
+            var result = alert.showAndWait( ).get( );
+            if (result.getButtonData( ) == ButtonBar.ButtonData.OK_DONE) {
+                companyDAO.deleteCompany( Sesion.getCompanySelected() );
+                back( );
+            }
+            Sesion.setCompanySelected(null);
         }
 
     }
