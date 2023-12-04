@@ -3,6 +3,7 @@ package com.example.teacher;
 import com.example.DAO;
 import com.example.HibernateUtil;
 import com.example.company.Company;
+import com.example.diaryActivity.DiaryActivity;
 import com.example.student.Student;
 import lombok.extern.java.Log;
 import org.hibernate.Session;
@@ -124,6 +125,32 @@ public class TeacherDAO implements DAO<Teacher> {
             Student i = session.get(Student.class, studentSelected.getStudent_id());
             session.remove(i);
         });
+    }
+
+    public void deleteAllActivitiesOfAStudent(Student student){
+
+        List<DiaryActivity> diaryActivities = new ArrayList<>(  );
+        try ( Session s = HibernateUtil.getSessionFactory( ).openSession( ) ) {
+            Query<DiaryActivity> q = s.createQuery( "from DiaryActivity where student =: student" , DiaryActivity.class );
+            q.setParameter( "student" , student );
+            diaryActivities = q.getResultList( );
+        }
+        for(DiaryActivity activity: diaryActivities){
+            HibernateUtil.getSessionFactory().inTransaction(session -> {
+                DiaryActivity da = session.get(DiaryActivity.class, activity.getActivity_id());
+                session.remove(da);
+            });
+        }
+
+    }
+    public Boolean studentHasActivity( Student student ) {
+        boolean salida;
+        try ( Session s = HibernateUtil.getSessionFactory( ).openSession( ) ) {
+            Query<DiaryActivity> q = s.createQuery( "from DiaryActivity where student =: student" , DiaryActivity.class );
+            q.setParameter( "student" , student );
+            salida = !q.getResultList( ).isEmpty( );
+        }
+        return salida;
     }
 
     public boolean isCorrectProfesor(String user, String pass) {

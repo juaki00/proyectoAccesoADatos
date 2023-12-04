@@ -72,8 +72,16 @@ public class EditarAlumnoController implements Initializable {
 
     @javafx.fxml.FXML
     public void delete( ) {
+
+
         Alert alert = new Alert( Alert.AlertType.CONFIRMATION );
-        alert.setContentText( "¿Deseas borrar al estudiante " + Sesion.getStudentSelected().getFirst_name() + " " + Sesion.getStudentSelected().getLast_name() + "?" );
+        if(teacherDAO.studentHasActivity( Sesion.getStudentSelected() )){
+            alert.setContentText( "El estudiante " + Sesion.getStudentSelected().getFirst_name() + " " + Sesion.getStudentSelected().getLast_name() + " tiene actividades diarias que tambien se borrarán" );
+            teacherDAO.deleteAllActivitiesOfAStudent( Sesion.getStudentSelected() );
+        }
+        else{
+            alert.setContentText( "¿Deseas borrar al estudiante " + Sesion.getStudentSelected().getFirst_name() + " " + Sesion.getStudentSelected().getLast_name() + "?" );
+        }
         var result = alert.showAndWait( ).get( );
         if (result.getButtonData( ) == ButtonBar.ButtonData.OK_DONE) {
             teacherDAO.deleteStudent( Sesion.getStudentSelected() );
