@@ -1,0 +1,24 @@
+.root{
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 12px;
+}
+
+.background{
+    -fx-background-image: url("background.png");
+    -fx-background-repeat: repeat ;
+}
+
+.title , .tableStyle{
+    -fx-background-image: url("background.png");
+    -fx-background-repeat: repeat ;
+    -fx-effect: dropshadow(three-pass-box, rgb(19, 39, 87), 10, 0, 2, 2);
+}
+
+.button{
+    -fx-effect: dropshadow(three-pass-box, rgb(19, 39, 87), 10, 0, 2, 2);
+    -fx-background-radius: 10 10 10 10;
+    -fx-border-radius: 10 10 10 10;
+}
+.buttonLogout{
+    -fx-background-color: #d97c7c;
+}
