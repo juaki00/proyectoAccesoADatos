@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<Pane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.EditarActivityController">
+   <children>
+      <BorderPane prefHeight="500.0" prefWidth="800.0">
+         <top>
+            <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+               <children>
+                  <Label text="Editando la tarea">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <FlowPane alignment="TOP_CENTER" hgap="50.0">
+                     <children>
+                        <VBox>
+                           <children>
+                              <Label text="Fecha" />
+                              <DatePicker fx:id="dpFecha" prefWidth="100.0" />
+                           </children>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <Label text="Tipo" />
+                              <ComboBox fx:id="comboTipo" prefWidth="100.0" />
+                           </children>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <Label text="Horas totales" />
+                              <Spinner fx:id="spHorasTotales" prefWidth="100.0" />
+                           </children>
+                        </VBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="25.0" />
+                     </VBox.margin>
+                  </FlowPane>
+               </children>
+            </VBox>
+         </top>
+         <center>
+            <VBox alignment="TOP_CENTER" BorderPane.alignment="TOP_LEFT">
+               <children>
+                  <Label prefHeight="18.0" prefWidth="196.0" text="Actividad realizada                  " />
+                  <FlowPane alignment="CENTER">
+                     <children>
+                        <TextArea fx:id="txtActividadRealizada" prefHeight="120.0" prefWidth="200.0" />
+                     </children>
+                  </FlowPane>
+                  <VBox alignment="TOP_CENTER">
+                     <children>
+                        <Label prefHeight="18.0" prefWidth="196.0" text="Observaciones e incidencias">
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <FlowPane alignment="CENTER">
+                           <children>
+                              <TextArea fx:id="txtObservaciones" prefHeight="120.0" prefWidth="200.0" />
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </FlowPane>
+                        <FlowPane alignment="CENTER" hgap="40.0">
+                           <VBox.margin>
+                              <Insets top="25.0" />
+                           </VBox.margin>
+                           <children>
+                              <Button fx:id="btnEditar" mnemonicParsing="false" onAction="#editarTarea" text="Editar" />
+                              <Button fx:id="btnVolver" mnemonicParsing="false" onAction="#volver" text="Volver" />
+                           </children>
+                        </FlowPane>
+                     </children>
+                  </VBox>
+               </children>
+               <BorderPane.margin>
+                  <Insets top="25.0" />
+               </BorderPane.margin>
+            </VBox>
+         </center>
+      </BorderPane>
+   </children>
+</Pane>
