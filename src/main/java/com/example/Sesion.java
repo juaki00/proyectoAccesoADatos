@@ -1,5 +1,6 @@
 package com.example;
 
+import com.example.company.Company;
 import com.example.diaryActivity.DiaryActivity;
 import com.example.student.Student;
 import com.example.teacher.Teacher;
@@ -27,7 +28,7 @@ public class Sesion {
 
     @Setter
     @Getter
-    private static Teacher currentTeacher;
+    private static Company companySelected;
 
     public static void logOut(){
         teacherLogged = null;

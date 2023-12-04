@@ -70,9 +70,9 @@ public class LoginController implements Initializable {
         }else if (comboTypeUser.getValue().equals("Profesor")){
             try{
                 if (daoT.isCorrectProfesor(txtUser.getText(), txtPass.getText())) {
-                    Sesion.setCurrentTeacher(daoT.loadLogin(txtUser.getText(), txtPass.getText() ));
+                    Sesion.setTeacherLogged(daoT.loadLogin(txtUser.getText(), txtPass.getText() ));
 
-                    App.loadFXML("teacher-view.fxml", "Alumnos de " + Sesion.getCurrentTeacher().getFirst_name());
+                    App.loadFXML("teacher-view.fxml", "Alumnos de " + Sesion.getTeacherLogged().getFirst_name());
                 } else {
                     txtUser.setText("");
                     txtPass.setText("");

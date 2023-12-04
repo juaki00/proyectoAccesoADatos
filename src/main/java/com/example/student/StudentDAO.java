@@ -51,8 +51,8 @@ public class StudentDAO implements DAO<Student> {
         Student result = null;
 
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
-            Query<Student> q = session.createQuery("from Student where first_name=:fn and access_password=:p", Student.class);
-            q.setParameter("fn",user);
+            Query<Student> q = session.createQuery("from Student where email=:ea and access_password=:p", Student.class);
+            q.setParameter("ea",user);
             q.setParameter("p",pass);
 
             try {
