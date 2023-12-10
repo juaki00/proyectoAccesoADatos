@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.util.List;
 
 /**
@@ -35,7 +36,7 @@ public class Teacher {
      * @return Cadena que representa la instancia de Teacher.
      */
     @Override
-    public String toString( ) {
+    public String toString() {
         return "Teacher{" +
                 "teacher_id=" + teacher_id +
                 ", first_name='" + first_name + '\'' +

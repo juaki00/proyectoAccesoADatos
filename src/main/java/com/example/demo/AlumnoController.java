@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
+
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -57,12 +58,11 @@ public class AlumnoController implements Initializable {
      * Este método se llama automáticamente al inicializar el controlador de la interfaz.
      * Configura las columnas de la tabla y carga los datos iniciales.
      *
-     * @param url             La ubicación para inicializar el controlador.
+     * @param url            La ubicación para inicializar el controlador.
      * @param resourceBundle Los recursos para inicializar el controlador.
-     *
      * @deprecated Este método está marcado como obsoleto. Se recomienda migrar a un enfoque más moderno
-     *             para la inicialización, como el uso de inyección de dependencias y métodos de
-     *             inicialización específicos.
+     * para la inicialización, como el uso de inyección de dependencias y métodos de
+     * inicialización específicos.
      */
     @Deprecated
     @Override
@@ -169,10 +169,9 @@ public class AlumnoController implements Initializable {
      * Muestra alertas de advertencia en caso de que la entrada no sea válida.
      *
      * @param actionEvent El evento de acción que desencadena la adición de la tarea.
-     *
      * @deprecated Este método está marcado como obsoleto. Se recomienda migrar a un enfoque más moderno,
-     *             como la separación de la lógica de la interfaz de usuario y el uso de métodos específicos
-     *             para la lógica de negocio.
+     * como la separación de la lógica de la interfaz de usuario y el uso de métodos específicos
+     * para la lógica de negocio.
      */
     @Deprecated
     public void addTarea(ActionEvent actionEvent) {

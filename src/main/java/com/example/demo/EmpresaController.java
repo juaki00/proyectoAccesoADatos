@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,15 +33,15 @@ public class EmpresaController implements Initializable {
     @FXML
     public Button btnAddCompany;
     @FXML
-    public TableColumn <Company,String> cNameCompany;
+    public TableColumn<Company, String> cNameCompany;
     @FXML
-    public TableColumn <Company,String> cEmail;
+    public TableColumn<Company, String> cEmail;
     @FXML
-    public TableColumn <Company,String> cTutor;
+    public TableColumn<Company, String> cTutor;
     @FXML
-    public TableColumn <Company,String> cObservations;
+    public TableColumn<Company, String> cObservations;
     @FXML
-    public TableColumn <Company,String> cNumberPhone;
+    public TableColumn<Company, String> cNumberPhone;
     @FXML
     public TextArea txtObservations;
     @FXML
@@ -52,7 +53,7 @@ public class EmpresaController implements Initializable {
     @FXML
     public TextField txtNameCompany;
     @FXML
-    public TableView <Company> companyTable;
+    public TableView<Company> companyTable;
     @FXML
     private Label labelBienvenidaProfesor;
     @FXML
@@ -61,23 +62,23 @@ public class EmpresaController implements Initializable {
     /**
      * Inicializa la interfaz de usuario para la gestión de empresas.
      *
-     * @param url             Ubicación utilizada para resolver rutas relativas a la raíz del objeto.
-     * @param resourceBundle  Se utiliza para localizar objetos específicos del país o para dar formato a mensajes.
+     * @param url            Ubicación utilizada para resolver rutas relativas a la raíz del objeto.
+     * @param resourceBundle Se utiliza para localizar objetos específicos del país o para dar formato a mensajes.
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         companyDAO = new CompanyDAO();
         fillTable();
 
-        List<String> companyNames = new ArrayList<>(  );
-        companyDAO.getAll().forEach( s -> companyNames.add( s.getCompany_name() ) );
-        comboEmpresas.getItems().addAll( companyNames );
-        comboEmpresas.setValue( comboEmpresas.getItems().getFirst() );
+        List<String> companyNames = new ArrayList<>();
+        companyDAO.getAll().forEach(s -> companyNames.add(s.getCompany_name()));
+        comboEmpresas.getItems().addAll(companyNames);
+        comboEmpresas.setValue(comboEmpresas.getItems().getFirst());
 
 
-        companyTable.getSelectionModel( ).selectedItemProperty( ).addListener( ( observableValue , company , t1 ) -> {
-            Sesion.setCompanySelected( t1 );
-        } );
+        companyTable.getSelectionModel().selectedItemProperty().addListener((observableValue, company, t1) -> {
+            Sesion.setCompanySelected(t1);
+        });
 
         companyTable.setOnMouseClicked(event -> {
             if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
@@ -93,11 +94,11 @@ public class EmpresaController implements Initializable {
     /**
      * Llena la tabla de empresas con datos de la base de datos.
      */
-    private void fillTable( ) {
-        CompanyDAO companyDAO = new CompanyDAO( );
-        List<Company> companies = companyDAO.getAll( );
+    private void fillTable() {
+        CompanyDAO companyDAO = new CompanyDAO();
+        List<Company> companies = companyDAO.getAll();
         Teacher teacher = Sesion.getTeacherLogged();
-        labelBienvenidaProfesor.setText(teacher.getFirst_name()+" "+teacher.getLast_name());
+        labelBienvenidaProfesor.setText(teacher.getFirst_name() + " " + teacher.getLast_name());
 
         cNameCompany.setCellValueFactory(cellData ->
                 new SimpleStringProperty(
@@ -116,9 +117,9 @@ public class EmpresaController implements Initializable {
                 new SimpleStringProperty(cellData.getValue().getIncidents_observations()
                 ));
 
-        ObservableList<Company> observableList = FXCollections.observableArrayList( );
-        observableList.addAll( companies );
-        companyTable.setItems( observableList );
+        ObservableList<Company> observableList = FXCollections.observableArrayList();
+        observableList.addAll(companies);
+        companyTable.setItems(observableList);
     }
 
     /**
@@ -137,7 +138,7 @@ public class EmpresaController implements Initializable {
      */
     @FXML
     public void volver(ActionEvent actionEvent) {
-        App.loadFXML("teacher-view.fxml","Teacher");
+        App.loadFXML("teacher-view.fxml", "Teacher");
     }
 
     /**
@@ -148,7 +149,7 @@ public class EmpresaController implements Initializable {
     @FXML
     public void logOut(ActionEvent actionEvent) {
         Sesion.logOut();
-        App.loadFXML("login-view.fxml" , "Login" );
+        App.loadFXML("login-view.fxml", "Login");
     }
 
     /**
@@ -161,38 +162,37 @@ public class EmpresaController implements Initializable {
      */
     @FXML
     public void insertCompany(ActionEvent actionEvent) {
-    if (txtNameCompany.getText().length()<2){
-        Alert alert = new Alert( Alert.AlertType.WARNING );
-        alert.setContentText( "El nombre debe tener minimo 2 caracteres" );
-        alert.show();
-    }else if (!validatePhone(txtNumberPhone.getText())) {
-        Alert alert = new Alert( Alert.AlertType.WARNING );
-        alert.setContentText( "Numero de teléfono introducido no válido (9 dígitos)" );
-        alert.show();
-    } else if (!validateEmail(txtEmail.getText())) {
-        Alert alert = new Alert( Alert.AlertType.WARNING );
-        alert.setContentText( "Email introducido no válido" );
-        alert.show();
-    }else if (txtTutor.getText().length()<3) {
-        Alert alert = new Alert( Alert.AlertType.WARNING );
-        alert.setContentText( "El nombre del tutor de empresa debe tener minimo 3 caracteres" );
-        alert.show();
-    } else if (txtObservations.getText().length() < 3) {
-        Alert alert = new Alert( Alert.AlertType.WARNING );
-        alert.setContentText( "Ingrese minimo 3 caracteres en las observaciones" );
-        alert.show();
-    }
-    else {
-        Company newCompany = new Company();
-        newCompany.setCompany_name(txtNameCompany.getText());
-        newCompany.setEmail(txtEmail.getText());
-        newCompany.setCompany_contact(txtTutor.getText());
-        newCompany.setPhone_number(txtNumberPhone.getText());
-        newCompany.setIncidents_observations(txtObservations.getText());
-        companyDAO.insertCompany(newCompany);
-        comboEmpresas.getItems().add( newCompany.getCompany_name() );
-        fillTable( );
-    }
+        if (txtNameCompany.getText().length() < 2) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("El nombre debe tener minimo 2 caracteres");
+            alert.show();
+        } else if (!validatePhone(txtNumberPhone.getText())) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Numero de teléfono introducido no válido (9 dígitos)");
+            alert.show();
+        } else if (!validateEmail(txtEmail.getText())) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Email introducido no válido");
+            alert.show();
+        } else if (txtTutor.getText().length() < 3) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("El nombre del tutor de empresa debe tener minimo 3 caracteres");
+            alert.show();
+        } else if (txtObservations.getText().length() < 3) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Ingrese minimo 3 caracteres en las observaciones");
+            alert.show();
+        } else {
+            Company newCompany = new Company();
+            newCompany.setCompany_name(txtNameCompany.getText());
+            newCompany.setEmail(txtEmail.getText());
+            newCompany.setCompany_contact(txtTutor.getText());
+            newCompany.setPhone_number(txtNumberPhone.getText());
+            newCompany.setIncidents_observations(txtObservations.getText());
+            companyDAO.insertCompany(newCompany);
+            comboEmpresas.getItems().add(newCompany.getCompany_name());
+            fillTable();
+        }
     }
 
     /**
@@ -201,16 +201,16 @@ public class EmpresaController implements Initializable {
      * @param text La cadena de texto a validar como correo electrónico.
      * @return true si la cadena sigue el patrón de correo electrónico, false de lo contrario.
      */
-    protected boolean validateEmail( String text ) {
+    protected boolean validateEmail(String text) {
         boolean salida;
         // Patrón para validar el email
         Pattern pattern = Pattern
                 .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                         + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
 
-        Matcher mather = pattern.matcher( text);
+        Matcher mather = pattern.matcher(text);
 
-        if (mather.find( )) {
+        if (mather.find()) {
             salida = true;
         } else {
             salida = false;
@@ -224,12 +224,12 @@ public class EmpresaController implements Initializable {
      * @param text La cadena de texto a validar como número de teléfono.
      * @return true si la cadena sigue el patrón de número de teléfono, false de lo contrario.
      */
-    protected boolean validatePhone( String text ) {
+    protected boolean validatePhone(String text) {
         boolean salida = true;
         try {
             Integer.parseInt(text);
-            if (text.length()!=9){
-                salida=false;
+            if (text.length() != 9) {
+                salida = false;
             }
         } catch (NumberFormatException excepcion) {
             salida = false;
@@ -244,6 +244,6 @@ public class EmpresaController implements Initializable {
      */
     @FXML
     public void companyDetails(ActionEvent actionEvent) {
-        if (Sesion.getCompanySelected() != null) App.loadFXML("edit-company-view.fxml" , "Editar empresa" );
+        if (Sesion.getCompanySelected() != null) App.loadFXML("edit-company-view.fxml", "Editar empresa");
     }
 }

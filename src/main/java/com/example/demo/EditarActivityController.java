@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -36,7 +37,7 @@ public class EditarActivityController implements Initializable {
      * Inicializa el controlador de la interfaz de edición de actividades.
      * Carga y configura los elementos de la interfaz con la información de la actividad seleccionada.
      *
-     * @param url             La ubicación para inicializar el controlador.
+     * @param url            La ubicación para inicializar el controlador.
      * @param resourceBundle Los recursos para inicializar el controlador.
      */
     @Override

@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -23,7 +24,7 @@ public class LoginController implements Initializable {
     @FXML
     public PasswordField txtPass;
     @FXML
-    public ComboBox <String> comboTypeUser;
+    public ComboBox<String> comboTypeUser;
     @FXML
     public Button btnLogin;
     @FXML
@@ -66,28 +67,29 @@ public class LoginController implements Initializable {
     public void login(ActionEvent actionEvent) {
         StudentDAO daoS = new StudentDAO();
         TeacherDAO daoT = new TeacherDAO();
-        if(comboTypeUser.getValue().equals("Alumno")){
-        try{
-            if (daoS.isCorrectStudent(txtUser.getText(), txtPass.getText())) {
-                Sesion.setCurrentStudent(daoS.loadLogin(txtUser.getText(), txtPass.getText() ));
+        if (comboTypeUser.getValue().equals("Alumno")) {
+            try {
+                if (daoS.isCorrectStudent(txtUser.getText(), txtPass.getText())) {
+                    Sesion.setCurrentStudent(daoS.loadLogin(txtUser.getText(), txtPass.getText()));
 
-                App.loadFXML("student-view.fxml", "Tareas de " + Sesion.getCurrentStudent().getFirst_name());
-            } else {
+                    App.loadFXML("student-view.fxml", "Tareas de " +
+                            Sesion.getCurrentStudent().getFirst_name());
+                } else {
+                    txtUser.setText("");
+                    txtPass.setText("");
+                    lblError.setText("Nombre de usuario o contraseña incorrecto(s)");
+                }
+
+            } catch (Exception e) {
                 txtUser.setText("");
                 txtPass.setText("");
-                lblError.setText("Nombre de usuario o contraseña incorrecto(s)");
+                lblError.setText("Error de conexion con la base de datos");
+                System.out.println(e.getMessage());
             }
-
-        } catch (Exception e){
-            txtUser.setText("");
-            txtPass.setText("");
-            lblError.setText("Error de conexion con la base de datos");
-            System.out.println(e.getMessage());
-        }
-        }else if (comboTypeUser.getValue().equals("Profesor")){
-            try{
+        } else if (comboTypeUser.getValue().equals("Profesor")) {
+            try {
                 if (daoT.isCorrectProfesor(txtUser.getText(), txtPass.getText())) {
-                    Sesion.setTeacherLogged(daoT.loadLogin(txtUser.getText(), txtPass.getText() ));
+                    Sesion.setTeacherLogged(daoT.loadLogin(txtUser.getText(), txtPass.getText()));
 
                     App.loadFXML("teacher-view.fxml", "Alumnos de " +
                             Sesion.getTeacherLogged().getFirst_name());
@@ -97,7 +99,7 @@ public class LoginController implements Initializable {
                     lblError.setText("Nombre de usuario o contraseña incorrecto(s)");
                 }
 
-            } catch (Exception e){
+            } catch (Exception e) {
                 txtUser.setText("");
                 txtPass.setText("");
                 lblError.setText("Error de conexion con la base de datos");
@@ -113,6 +115,6 @@ public class LoginController implements Initializable {
      * @param actionEvent Evento de acción generado al hacer clic en el botón de registro.
      */
     public void register(ActionEvent actionEvent) {
-        App.loadFXML("register-view.fxml","Register");
+        App.loadFXML("register-view.fxml", "Register");
     }
 }

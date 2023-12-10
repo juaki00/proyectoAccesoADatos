@@ -20,13 +20,12 @@ public class StudentDAO implements DAO<Student> {
      * @return Lista de estudiantes.
      */
     @Override
-    public List<Student> getAll( ) {
+    public List<Student> getAll() {
         List<Student> result = null;
-        try( Session s = HibernateUtil.getSessionFactory().openSession()) {
-            Query<Student> q = s.createQuery( "from Student", Student.class);
+        try (Session s = HibernateUtil.getSessionFactory().openSession()) {
+            Query<Student> q = s.createQuery("from Student", Student.class);
             result = q.getResultList();
-        }
-        catch ( Exception ignore ){
+        } catch (Exception ignore) {
         }
         return result;
     }
@@ -38,7 +37,7 @@ public class StudentDAO implements DAO<Student> {
      * @return Estudiante encontrado, o null si no se encuentra.
      */
     @Override
-    public Student get( Long id ) {
+    public Student get(Long id) {
         return null;
     }
 
@@ -49,7 +48,7 @@ public class StudentDAO implements DAO<Student> {
      * @return Estudiante guardado.
      */
     @Override
-    public Student save( Student data ) {
+    public Student save(Student data) {
         return null;
     }
 
@@ -59,7 +58,7 @@ public class StudentDAO implements DAO<Student> {
      * @param data Estudiante con la información actualizada.
      */
     @Override
-    public void update( Student data ) {
+    public void update(Student data) {
 
     }
 
@@ -69,7 +68,7 @@ public class StudentDAO implements DAO<Student> {
      * @param data Estudiante a eliminar.
      */
     @Override
-    public void delete( Student data ) {
+    public void delete(Student data) {
 
     }
 
@@ -81,7 +80,7 @@ public class StudentDAO implements DAO<Student> {
      * @return true si las credenciales son correctas, false en caso contrario.
      */
     public boolean isCorrectStudent(String user, String pass) {
-        return loadLogin(user,pass) != null;
+        return loadLogin(user, pass) != null;
     }
 
 
@@ -92,18 +91,18 @@ public class StudentDAO implements DAO<Student> {
      * @param pass Contraseña del estudiante.
      * @return Objeto Student si las credenciales son correctas, o null si no se encuentra.
      */
-    public  Student loadLogin(String user, String pass) {
+    public Student loadLogin(String user, String pass) {
         Student result = null;
 
-        try(Session session = HibernateUtil.getSessionFactory().openSession()){
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Query<Student> q = session.createQuery("from Student where email=:ea and access_password=:p",
                     Student.class);
-            q.setParameter("ea",user);
-            q.setParameter("p",pass);
+            q.setParameter("ea", user);
+            q.setParameter("p", pass);
 
             try {
                 result = q.getSingleResult();
-            }catch (Exception e){
+            } catch (Exception e) {
                 log.warning("Error al cargar el login del estudiante: " + e.getMessage());
             }
         }

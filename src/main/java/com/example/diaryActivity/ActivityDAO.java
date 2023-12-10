@@ -7,6 +7,7 @@ import lombok.extern.java.Log;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+
 import java.util.List;
 
 /**
@@ -22,17 +23,16 @@ public class ActivityDAO implements DAO<DiaryActivity> {
      * @return Lista de actividades diarias, o null si hay un error o no hay actividades.
      */
     @Override
-    public List<DiaryActivity> getAll( ) {
+    public List<DiaryActivity> getAll() {
         //Creo una lista de DiaryActivity para almacenar los estudiantes
         List<DiaryActivity> result = null;
         //Inicio sesion en hibernate
-        try( Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             // Creo una consulta Query para obtener todos los objetos DiaryActivity
-            Query<DiaryActivity> query = session.createQuery( "from DiaryActivity", DiaryActivity.class);
+            Query<DiaryActivity> query = session.createQuery("from DiaryActivity", DiaryActivity.class);
             // Llevo a cabo la consulta y asigno los resultados a la lista de salida
             result = query.getResultList();
-        }
-        catch ( Exception ignore ){
+        } catch (Exception ignore) {
         }
         return result;
     }
@@ -44,7 +44,7 @@ public class ActivityDAO implements DAO<DiaryActivity> {
      * @return Actividad diaria correspondiente al identificador proporcionado o una instancia vacía si no se encuentra.
      */
     @Override
-    public DiaryActivity get( Long id ) {
+    public DiaryActivity get(Long id) {
         //Creo una instancia de DiaryActivity
         var salida = new DiaryActivity();
 
@@ -63,7 +63,7 @@ public class ActivityDAO implements DAO<DiaryActivity> {
      * @return La actividad diaria guardada.
      */
     @Override
-    public DiaryActivity save( DiaryActivity data ) {
+    public DiaryActivity save(DiaryActivity data) {
         //Abro sesión en hibernate
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             //Inicializo la transacción a nulo
@@ -90,7 +90,7 @@ public class ActivityDAO implements DAO<DiaryActivity> {
      * @param data La actividad diaria que se va a actualizar.
      */
     @Override
-    public void update( DiaryActivity data ) {
+    public void update(DiaryActivity data) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         try {
@@ -118,7 +118,7 @@ public class ActivityDAO implements DAO<DiaryActivity> {
     public void delete(DiaryActivity data) {
         HibernateUtil.getSessionFactory().inTransaction(session -> {
             // Obtengo el objeto DiaryActivity a partir de su id
-            DiaryActivity activity= session.get(DiaryActivity.class, data.getActivity_id());
+            DiaryActivity activity = session.get(DiaryActivity.class, data.getActivity_id());
             // Elimino el objeto DiaryActivity de la base de datos
             session.remove(activity);
         });
@@ -130,13 +130,13 @@ public class ActivityDAO implements DAO<DiaryActivity> {
      * @param student El estudiante del cual se quieren obtener las actividades.
      * @return Lista de actividades diarias asociadas al estudiante, o una lista vacía si no hay actividades.
      */
-    public List<DiaryActivity> activitiesOfStudent( Student student){
+    public List<DiaryActivity> activitiesOfStudent(Student student) {
         List<DiaryActivity> salida;
-        try ( Session s = HibernateUtil.getSessionFactory( ).openSession( ) ) {
-            Query<DiaryActivity> q = s.createQuery( "from DiaryActivity where student =: id" ,
-                    DiaryActivity.class );
-            q.setParameter( "id" , student );
-            salida = q.getResultList( );
+        try (Session s = HibernateUtil.getSessionFactory().openSession()) {
+            Query<DiaryActivity> q = s.createQuery("from DiaryActivity where student =: id",
+                    DiaryActivity.class);
+            q.setParameter("id", student);
+            salida = q.getResultList();
         }
         return salida;
     }

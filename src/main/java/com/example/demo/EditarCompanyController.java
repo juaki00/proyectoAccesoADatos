@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -50,8 +51,8 @@ public class EditarCompanyController implements Initializable {
     /**
      * Inicializa la interfaz de usuario para la edición de una empresa.
      *
-     * @param url             Ubicación utilizada para resolver rutas relativas a la raíz del objeto.
-     * @param resourceBundle  Se utiliza para localizar objetos específicos del país o para dar formato a mensajes.
+     * @param url            Ubicación utilizada para resolver rutas relativas a la raíz del objeto.
+     * @param resourceBundle Se utiliza para localizar objetos específicos del país o para dar formato a mensajes.
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -70,8 +71,8 @@ public class EditarCompanyController implements Initializable {
         txtNumberPhone.setText(companySelected.getPhone_number());
         txtObservations.setText(companySelected.getIncidents_observations());
         // Muestra el nombre de la empresa y del profesor en las etiquetas correspondientes
-        lblCompanyName.setText("Editando la empresa "+companySelected.getCompany_name());
-        lblProfesor.setText(currentTeacher.getFirst_name()+" "+currentTeacher.getLast_name());
+        lblCompanyName.setText("Editando la empresa " + companySelected.getCompany_name());
+        lblProfesor.setText(currentTeacher.getFirst_name() + " " + currentTeacher.getLast_name());
     }
 
     /**
@@ -80,7 +81,7 @@ public class EditarCompanyController implements Initializable {
      */
     @FXML
     public void back() {
-        App.loadFXML("company-view.fxml","Companies");
+        App.loadFXML("company-view.fxml", "Companies");
     }
 
     /**
@@ -92,7 +93,7 @@ public class EditarCompanyController implements Initializable {
     @FXML
     public void logOut(ActionEvent actionEvent) {
         Sesion.logOut();
-        App.loadFXML("login-view.fxml" , "Login" );
+        App.loadFXML("login-view.fxml", "Login");
     }
 
     /**
@@ -135,33 +136,28 @@ public class EditarCompanyController implements Initializable {
      */
     @FXML
     public void editCompany(ActionEvent actionEvent) {
-    Company company = Sesion.getCompanySelected();
-        if (txtCompanyName.getText().length()<2){
-            Alert alert = new Alert( Alert.AlertType.WARNING );
-            alert.setContentText( "El nombre debe tener minimo 2 caracteres" );
+        Company company = Sesion.getCompanySelected();
+        if (txtCompanyName.getText().length() < 2) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("El nombre debe tener minimo 2 caracteres");
             alert.show();
-        }
-        else if (!empresaController.validateEmail(txtEmail.getText())) {
-            Alert alert = new Alert( Alert.AlertType.WARNING );
-            alert.setContentText( "Email introducido no válido" );
+        } else if (!empresaController.validateEmail(txtEmail.getText())) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Email introducido no válido");
             alert.show();
-        }
-        else if (txtTutor.getText().length()<3){
-            Alert alert = new Alert( Alert.AlertType.WARNING );
-            alert.setContentText( "El nombre del tutor de empresa debe tener minimo 3 caracteres" );
+        } else if (txtTutor.getText().length() < 3) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("El nombre del tutor de empresa debe tener minimo 3 caracteres");
             alert.show();
-        }
-        else if (!empresaController.validatePhone(txtNumberPhone.getText())) {
-            Alert alert = new Alert( Alert.AlertType.WARNING );
-            alert.setContentText( "Numero de teléfono introducido no válido (9 dígitos)" );
+        } else if (!empresaController.validatePhone(txtNumberPhone.getText())) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Numero de teléfono introducido no válido (9 dígitos)");
             alert.show();
-        }
-        else if (txtObservations.getText().length()<3){
-            Alert alert = new Alert( Alert.AlertType.WARNING );
-            alert.setContentText( "Ingrese minimo 3 caracteres en las observaciones" );
+        } else if (txtObservations.getText().length() < 3) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Ingrese minimo 3 caracteres en las observaciones");
             alert.show();
-        }
-        else {
+        } else {
 
             company.setCompany_name(txtCompanyName.getText());
             company.setEmail(txtEmail.getText());

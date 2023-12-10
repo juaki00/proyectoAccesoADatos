@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.util.List;
 
 /**
@@ -46,15 +47,16 @@ public class Student {
 
     /**
      * Método toString que proporciona una representación de Srtings de la instancia de Student.
+     *
      * @return Representación de cadena de la instancia de Student.
      */
-    public String toString( ) {
+    public String toString() {
 
         String nombreTutor = "Sin tutor asignado";
         String nombreEmpresa = "Sin empresa asignada";
         Integer numeroDiariosActividades = 0;
-        if (this.tutor!=null) nombreTutor = this.tutor.getFirst_name();
-        if (this.company!=null) nombreEmpresa = this.company.getCompany_name();
+        if (this.tutor != null) nombreTutor = this.tutor.getFirst_name();
+        if (this.company != null) nombreEmpresa = this.company.getCompany_name();
         return "Student{" +
                 "student_id=" + student_id +
                 ", first_name='" + first_name + '\'' +
