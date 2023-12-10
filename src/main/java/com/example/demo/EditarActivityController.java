@@ -15,7 +15,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Controlador para la interfaz de edición de actividades.
+ * Controlador para la interfaz de los estudiantes para la edición de actividades.
  */
 public class EditarActivityController implements Initializable {
     @javafx.fxml.FXML
