@@ -32,7 +32,7 @@ public class DiaryActivity {
     private Student student;
 
     /**
-     * Método toString que representa en forma de texto a la entidad.
+     * Método toString que representa en forma de Strings a la entidad.
      *
      * @return Representación de cadena de la entidad DiaryActivity.
      */

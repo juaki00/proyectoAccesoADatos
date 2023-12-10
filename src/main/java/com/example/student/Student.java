@@ -7,9 +7,11 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.util.List;
 
+/**
+ * Clase que representa a un estudiante.
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -42,7 +44,10 @@ public class Student {
     @JoinColumn(name = "tutor")
     private Teacher tutor;
 
-
+    /**
+     * Método toString que proporciona una representación de Srtings de la instancia de Student.
+     * @return Representación de cadena de la instancia de Student.
+     */
     public String toString( ) {
 
         String nombreTutor = "Sin tutor asignado";
