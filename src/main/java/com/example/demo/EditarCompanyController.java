@@ -10,11 +10,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * Controlador para la interfaz de edición de información de una empresa.
+ * Permite a un profesor editar detalles específicos de una empresa asociada.
+ */
 public class EditarCompanyController implements Initializable {
 
     CompanyDAO companyDAO;
@@ -44,32 +47,61 @@ public class EditarCompanyController implements Initializable {
     @FXML
     public Button btnLogOut;
 
+    /**
+     * Inicializa la interfaz de edición de la información de una empresa.
+     * Carga los datos de la empresa seleccionada en los campos correspondientes.
+     * Muestra el nombre de la empresa en la etiqueta "lblCompanyName" y el nombre del profesor en la etiqueta "lblProfesor".
+     * Los datos se obtienen de la sesión y la base de datos.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Inicializa instancias DAO de Empresa y de Profesor
         companyDAO = new CompanyDAO();
         teacherDAO = new TeacherDAO();
+        // Inicializa el controlador de empresa
         empresaController = new EmpresaController();
+        // Obtiene la empresa seleccionada y el profesor actual de la sesión
         Company companySelected = Sesion.getCompanySelected();
         Teacher currentTeacher = Sesion.getTeacherLogged();
+        // Configura los campos de la interfaz con los datos de la empresa
         txtCompanyName.setText(companySelected.getCompany_name());
         txtEmail.setText(companySelected.getEmail());
         txtTutor.setText(companySelected.getCompany_contact());
         txtNumberPhone.setText(companySelected.getPhone_number());
         txtObservations.setText(companySelected.getIncidents_observations());
-
+        // Muestra el nombre de la empresa y del profesor en las etiquetas correspondientes
         lblCompanyName.setText("Editando la empresa "+companySelected.getCompany_name());
         lblProfesor.setText(currentTeacher.getFirst_name()+" "+currentTeacher.getLast_name());
     }
+
+    /**
+     * Carga la interfaz de vista de empresas cuando el usuario hace clic en el botón "Back".
+     * Permite al usuario regresar a la vista principal de empresas.
+     */
     @FXML
     public void back() {
         App.loadFXML("company-view.fxml","Companies");
     }
+
+    /**
+     * Realiza la acción de cierre de sesión cuando el usuario hace clic en el botón "Log Out".
+     * Cierra la sesión actual y carga la interfaz de inicio de sesión.
+     *
+     * @param actionEvent Evento de acción asociado al clic del botón "Log Out".
+     */
     @FXML
     public void logOut(ActionEvent actionEvent) {
         Sesion.logOut();
         App.loadFXML("login-view.fxml" , "Login" );
     }
 
+    /**
+     * Borra la empresa seleccionada. Muestra un cuadro de diálogo de confirmación para asegurarse de que el usuario desea
+     * borrar la empresa. Si hay alumnos asignados a la empresa, muestra una advertencia y no permite la eliminación.
+     * Si la empresa se elimina correctamente, vuelve a la vista principal de empresas.
+     *
+     * @param actionEvent Evento de acción asociado al clic del botón "Delete".
+     */
     @FXML
     public void deleteCompany(ActionEvent actionEvent) {
         if (Sesion.getCompanySelected() != null) {
@@ -92,6 +124,13 @@ public class EditarCompanyController implements Initializable {
         }
     }
 
+    /**
+     * Edita la información de la empresa seleccionada. Realiza validaciones antes de realizar la edición,
+     * como asegurarse de que el nombre tenga al menos 2 caracteres, que el correo electrónico sea válido, etc.
+     * Si la edición se realiza con éxito, muestra un cuadro de diálogo de confirmación y vuelve a la vista principal de empresas.
+     *
+     * @param actionEvent Evento de acción asociado al clic del botón "Edit".
+     */
     @FXML
     public void editCompany(ActionEvent actionEvent) {
     Company company = Sesion.getCompanySelected();
@@ -134,8 +173,5 @@ public class EditarCompanyController implements Initializable {
             alert.show();
             back();
         }
-
     }
-
-
 }
