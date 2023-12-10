@@ -14,7 +14,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
-
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -23,7 +22,6 @@ import java.util.ResourceBundle;
 /**
  * Controlador para la interfaz relacionada con las actividades del alumno.
  */
-
 public class AlumnoController implements Initializable {
     @javafx.fxml.FXML
     private ComboBox<PracticeType> comboTipo;
@@ -66,7 +64,6 @@ public class AlumnoController implements Initializable {
      *             para la inicialización, como el uso de inyección de dependencias y métodos de
      *             inicialización específicos.
      */
-
     @Deprecated
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -119,7 +116,6 @@ public class AlumnoController implements Initializable {
         } else {
             System.err.println("Error: El estudiante seleccionado es null.");
         }
-
 
         //Obtengo el valor actual de la fecha
         dpFecha.getValue();
@@ -174,7 +170,6 @@ public class AlumnoController implements Initializable {
      *             como la separación de la lógica de la interfaz de usuario y el uso de métodos específicos
      *             para la lógica de negocio.
      */
-
     @Deprecated
     public void addTarea(ActionEvent actionEvent) {
         if (dpFecha.getValue() == null || !fechaIsValid(dpFecha.getValue())) {
@@ -231,7 +226,6 @@ public class AlumnoController implements Initializable {
      * @param fecha La fecha a validar.
      * @return true si la fecha es válida; false de lo contrario.
      */
-
     private boolean fechaIsValid(LocalDate fecha) {
         // Compruebo que el formato de la fecha es el correcto con una expresión regular
         String formatoFecha = "\\d{2}/\\d{2}/\\d{4}";
@@ -244,7 +238,6 @@ public class AlumnoController implements Initializable {
      *
      * @param actionEvent El evento de acción que desencadena la eliminación de la tarea.
      */
-
     @FXML
     public void delete(ActionEvent actionEvent) {
         // Obtengo la tarea seleccionada
@@ -281,7 +274,6 @@ public class AlumnoController implements Initializable {
      *
      * @param actionEvent El evento de acción que desencadena la operación de cierre de sesión.
      */
-
     @javafx.fxml.FXML
     public void logOut(ActionEvent actionEvent) {
         // Establezco al usuario en la sesión como null, indicando que no hay usuario activo.
