@@ -18,10 +18,11 @@ import javafx.scene.input.MouseButton;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.ResourceBundle;
 
-import static com.example.diaryActivity.PracticeType.DUAL;
+/**
+ * Controlador para la interfaz relacionada con las actividades del alumno.
+ */
 
 public class AlumnoController implements Initializable {
     @javafx.fxml.FXML
@@ -54,6 +55,17 @@ public class AlumnoController implements Initializable {
     // Instancio de ActivityDAO para acceder a operaciones de base de datos relacionadas con DiaryActivity
     private ActivityDAO activityDAO = new ActivityDAO();
 
+    /**
+     * Este método se llama automáticamente al inicializar el controlador de la interfaz.
+     * Configura las columnas de la tabla y carga los datos iniciales.
+     *
+     * @param url             La ubicación para inicializar el controlador.
+     * @param resourceBundle Los recursos para inicializar el controlador.
+     *
+     * @deprecated Este método está marcado como obsoleto. Se recomienda migrar a un enfoque más moderno
+     *             para la inicialización, como el uso de inyección de dependencias y métodos de
+     *             inicialización específicos.
+     */
 
     @Deprecated
     @Override
@@ -152,6 +164,17 @@ public class AlumnoController implements Initializable {
         });
     }
 
+    /**
+     * Añade una nueva tarea de diario basada en la información proporcionada por el usuario.
+     * Muestra alertas de advertencia en caso de que la entrada no sea válida.
+     *
+     * @param actionEvent El evento de acción que desencadena la adición de la tarea.
+     *
+     * @deprecated Este método está marcado como obsoleto. Se recomienda migrar a un enfoque más moderno,
+     *             como la separación de la lógica de la interfaz de usuario y el uso de métodos específicos
+     *             para la lógica de negocio.
+     */
+
     @Deprecated
     public void addTarea(ActionEvent actionEvent) {
         if (dpFecha.getValue() == null || !fechaIsValid(dpFecha.getValue())) {
@@ -201,11 +224,26 @@ public class AlumnoController implements Initializable {
         observableListDiaryActivity.setAll(activityDAO.getAll());
         tvTareas.setItems(observableListDiaryActivity);
     }
+
+    /**
+     * Comprueba que la fecha proporcionada sea válida y sigue el formato dd/MM/yyyy.
+     *
+     * @param fecha La fecha a validar.
+     * @return true si la fecha es válida; false de lo contrario.
+     */
+
     private boolean fechaIsValid(LocalDate fecha) {
         // Compruebo que el formato de la fecha es el correcto con una expresión regular
         String formatoFecha = "\\d{2}/\\d{2}/\\d{4}";
         return fecha != null && fecha.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).matches(formatoFecha);
     }
+
+    /**
+     * Elimina la tarea seleccionada de la lista y de la base de datos, si el usuario confirma.
+     * Muestra un cuadro de diálogo de confirmación antes de la eliminación.
+     *
+     * @param actionEvent El evento de acción que desencadena la eliminación de la tarea.
+     */
 
     @FXML
     public void delete(ActionEvent actionEvent) {
@@ -237,6 +275,12 @@ public class AlumnoController implements Initializable {
             alert.showAndWait();
         }
     }
+
+    /**
+     * Cierra la sesión del usuario actual y redirige a la pantalla de inicio de sesión.
+     *
+     * @param actionEvent El evento de acción que desencadena la operación de cierre de sesión.
+     */
 
     @javafx.fxml.FXML
     public void logOut(ActionEvent actionEvent) {
