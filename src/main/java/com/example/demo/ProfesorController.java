@@ -22,7 +22,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Controlador para la interfaz gráfica asociada al archivo FXML 'profesor-view.fxml'.
+ * Controlador para la interfaz gráfica asociada al profesor.
  * Maneja la lógica de la interfaz gráfica utilizada por los profesores.
  */
 public class ProfesorController implements Initializable {
@@ -68,7 +68,7 @@ public class ProfesorController implements Initializable {
     private TextArea textObservations;
 
     /**
-     * Inicializa el controlador después de que se haya cargado la interfaz gráfica.
+     * Inicializa el controlador del profesor después de que se haya cargado la interfaz gráfica.
      *
      * @param url            Ubicación relativa del archivo FXML.
      * @param resourceBundle El paquete de recursos utilizado para localizar archivos FXML.

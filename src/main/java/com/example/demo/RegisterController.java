@@ -3,7 +3,6 @@ package com.example.demo;
 import com.example.App;
 import com.example.HibernateUtil;
 import com.example.teacher.Teacher;
-import com.example.teacher.TeacherDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,9 +12,13 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import lombok.extern.java.Log;
 import org.hibernate.Transaction;
-
 import java.net.URL;
 import java.util.ResourceBundle;
+
+/**
+ * Clase controladora para la vista de registro.
+ * Gestiona la funcionalidad de registro de usuarios.
+ */
 @Log
 public class RegisterController implements Initializable {
     EmpresaController empresaController;
@@ -33,17 +36,40 @@ public class RegisterController implements Initializable {
     @FXML
     public Button btnBack;
 
+    /**
+     * Inicializa el controlador después de que se cargue la interfaz de usuario.
+     *
+     * Este método se llama automáticamente después de que se cargue la interfaz de usuario.
+     * Se utiliza para realizar inicializaciones adicionales.
+     *
+     * @param url            La ubicación para resolver rutas relativas de la raíz del objeto inicializable;
+     *                       puede ser nulo si no se conoce la ubicación.
+     * @param resourceBundle Los recursos para localizar el objeto inicializable;
+     *                       puede ser nulo si no se necesita localizar.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         empresaController = new EmpresaController();
 
     }
 
+    /**
+     * Regresa a la pantalla anterior cargando la interfaz gráfica de usuario de inicio de sesión (login).
+     *
+     * @param actionEvent Evento que desencadena la acción.
+     */
     @FXML
     public void back(ActionEvent actionEvent) {
         App.loadFXML("login-view.fxml","Login");
     }
 
+    /**
+     * Registra un nuevo profesor en el sistema.
+     * Se valida la información ingresada antes de realizar el registro.
+     * En caso de éxito, muestra un mensaje de confirmación y vuelve a la pantalla de inicio de sesión.
+     *
+     * @param actionEvent Evento que desencadena la acción.
+     */
     @FXML
     public void register(ActionEvent actionEvent) {
         try ( org.hibernate.Session s = HibernateUtil.getSessionFactory( ).openSession( ) ) {
@@ -82,7 +108,6 @@ public class RegisterController implements Initializable {
         }catch ( Exception e ) {
             log.severe( "Error al insertar un nuevo profesor" );
         }
-
     }
 }
 
