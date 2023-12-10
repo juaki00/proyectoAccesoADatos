@@ -68,7 +68,9 @@ public class AlumnoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println(Sesion.getCurrentStudent());
-        System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println("---------------------------------------------------------------------------------------" +
+                "--------------------------------------------------------------------------------------------------" +
+                "----------------------------------------------------------");
 
         // Configuro las columnas de la tabla y carga de datos.
         //Configuro la columna con las Horas Totales
@@ -142,12 +144,14 @@ public class AlumnoController implements Initializable {
         tvTareas.setItems(observableListDiaryActivity);
 
 
-        // Cuando se selecciona una fila, verifica que el nuevo elemento (t1) no sea nulo y, en ese caso, establece la atarea pulsada en la clase Sesion con la actividad asociada a la fila seleccionada
+        // Cuando se selecciona una fila, verifica que el nuevo elemento (t1) no sea nulo y, en ese caso,
+        // establece la atarea pulsada en la clase Sesion con la actividad asociada a la fila seleccionada
         tvTareas.getSelectionModel().selectedItemProperty().addListener((observableValue, tarea, t1) -> {
             if (t1 != null) Sesion.setDiaryActivityPulsada(t1);
         });
 
-        // Si se hace doble clic en una fila, verifica que la fila seleccionada no sea nula, establece la tarea pulsada en la sesión y carga la vista de detalles
+        // Si se hace doble clic en una fila, verifica que la fila seleccionada no sea nula, establece la tarea pulsada
+        // en la sesión y carga la vista de detalles
         tvTareas.setOnMouseClicked(event -> {
             if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
                 DiaryActivity selectedPedido = tvTareas.getSelectionModel().getSelectedItem();

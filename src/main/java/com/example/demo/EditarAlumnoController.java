@@ -64,8 +64,10 @@ public class EditarAlumnoController implements Initializable {
 
         comboCompany.setValue( studentSelected.getCompany().getCompany_name() );
 
-        spinnerDual.setValueFactory( new SpinnerValueFactory.IntegerSpinnerValueFactory( 0 , 250 , studentSelected.getTotal_dual_hours(), 1 ) );
-        spinnerFCT.setValueFactory( new SpinnerValueFactory.IntegerSpinnerValueFactory( 0 , 250 , studentSelected.getTotal_fct_hours() , 1 ) );
+        spinnerDual.setValueFactory( new SpinnerValueFactory.IntegerSpinnerValueFactory( 0 , 250 ,
+                studentSelected.getTotal_dual_hours(), 1 ) );
+        spinnerFCT.setValueFactory( new SpinnerValueFactory.IntegerSpinnerValueFactory( 0 , 250 ,
+                studentSelected.getTotal_fct_hours() , 1 ) );
     }
 
     /**
@@ -77,11 +79,13 @@ public class EditarAlumnoController implements Initializable {
     public void delete( ) {
         Alert alert = new Alert( Alert.AlertType.CONFIRMATION );
         if(teacherDAO.studentHasActivity( Sesion.getStudentSelected() )){
-            alert.setContentText( "El estudiante " + Sesion.getStudentSelected().getFirst_name() + " " + Sesion.getStudentSelected().getLast_name() + " tiene actividades diarias que tambien se borrarán" );
+            alert.setContentText( "El estudiante " + Sesion.getStudentSelected().getFirst_name() + " " +
+                    Sesion.getStudentSelected().getLast_name() + " tiene actividades diarias que tambien se borrarán" );
             teacherDAO.deleteAllActivitiesOfAStudent( Sesion.getStudentSelected() );
         }
         else{
-            alert.setContentText( "¿Deseas borrar al estudiante " + Sesion.getStudentSelected().getFirst_name() + " " + Sesion.getStudentSelected().getLast_name() + "?" );
+            alert.setContentText( "¿Deseas borrar al estudiante " + Sesion.getStudentSelected().getFirst_name() +
+                    " " + Sesion.getStudentSelected().getLast_name() + "?" );
         }
         var result = alert.showAndWait( ).get( );
         if (result.getButtonData( ) == ButtonBar.ButtonData.OK_DONE) {

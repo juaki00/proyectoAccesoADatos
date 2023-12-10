@@ -4,9 +4,7 @@ import com.example.App;
 import com.example.Sesion;
 import com.example.company.Company;
 import com.example.company.CompanyDAO;
-import com.example.diaryActivity.DiaryActivity;
 import com.example.teacher.Teacher;
-import com.example.teacher.TeacherDAO;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,7 +14,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
-
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +21,9 @@ import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Controlador para los profesores para la gestión de las empresas en la interfaz gráfica.
+ */
 public class EmpresaController implements Initializable {
 
     CompanyDAO companyDAO;
@@ -53,18 +53,17 @@ public class EmpresaController implements Initializable {
     public TextField txtNameCompany;
     @FXML
     public TableView <Company> companyTable;
-
     @FXML
     private Label labelBienvenidaProfesor;
-
     @FXML
     private ComboBox comboEmpresas;
 
-    @FXML
-    private Button btnVolver;
-
-    @FXML
-    private Button btnLogOut;
+    /**
+     * Inicializa la interfaz de usuario para la gestión de empresas.
+     *
+     * @param url             Ubicación utilizada para resolver rutas relativas a la raíz del objeto.
+     * @param resourceBundle  Se utiliza para localizar objetos específicos del país o para dar formato a mensajes.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         companyDAO = new CompanyDAO();
@@ -89,9 +88,11 @@ public class EmpresaController implements Initializable {
                 }
             }
         });
-
     }
 
+    /**
+     * Llena la tabla de empresas con datos de la base de datos.
+     */
     private void fillTable( ) {
         CompanyDAO companyDAO = new CompanyDAO( );
         List<Company> companies = companyDAO.getAll( );
@@ -120,23 +121,44 @@ public class EmpresaController implements Initializable {
         companyTable.setItems( observableList );
     }
 
+    /**
+     * Método encargado del evento de clic. No realiza ninguna operación específica.
+     *
+     * @param event El evento de clic que desencadena este método.
+     */
     @FXML
     public void click(Event event) {
     }
 
-
+    /**
+     * Método encargado del evento de volver. Carga la interfaz de usuario del profesor.
+     *
+     * @param actionEvent El evento de clic que desencadena este método.
+     */
     @FXML
     public void volver(ActionEvent actionEvent) {
         App.loadFXML("teacher-view.fxml","Teacher");
     }
 
+    /**
+     * Método encargado del evento de cierre de sesión. Cierra la sesión actual y carga la interfaz de inicio de sesión.
+     *
+     * @param actionEvent El evento de clic que desencadena este método.
+     */
     @FXML
     public void logOut(ActionEvent actionEvent) {
         Sesion.logOut();
         App.loadFXML("login-view.fxml" , "Login" );
     }
 
-
+    /**
+     * Método encargado de la inserción de una nueva empresa. Valida los campos de entrada y, si son válidos,
+     * crea una nueva instancia de la clase Company con los datos proporcionados, la inserta en la base de datos
+     * y actualiza la interfaz.
+     * Muestra alertas de advertencia si los campos no cumplen con los requisitos mínimos.
+     *
+     * @param actionEvent El evento de clic que desencadena este método.
+     */
     @FXML
     public void insertCompany(ActionEvent actionEvent) {
     if (txtNameCompany.getText().length()<2){
@@ -173,6 +195,12 @@ public class EmpresaController implements Initializable {
     }
     }
 
+    /**
+     * Comprueba que la cadena de texto dada siga el patrón de un correo electrónico.
+     *
+     * @param text La cadena de texto a validar como correo electrónico.
+     * @return true si la cadena sigue el patrón de correo electrónico, false de lo contrario.
+     */
     protected boolean validateEmail( String text ) {
         boolean salida;
         // Patrón para validar el email
@@ -190,6 +218,12 @@ public class EmpresaController implements Initializable {
         return salida;
     }
 
+    /**
+     * Comrpueba que la cadena de texto dada sea un número de teléfono válido (9 dígitos numéricos).
+     *
+     * @param text La cadena de texto a validar como número de teléfono.
+     * @return true si la cadena sigue el patrón de número de teléfono, false de lo contrario.
+     */
     protected boolean validatePhone( String text ) {
         boolean salida = true;
         try {
@@ -203,6 +237,11 @@ public class EmpresaController implements Initializable {
         return salida;
     }
 
+    /**
+     * Abre la interfaz de edición de detalles de la empresa actualmente seleccionada, si hay una empresa seleccionada.
+     *
+     * @param actionEvent El evento de clic que desencadena este método.
+     */
     @FXML
     public void companyDetails(ActionEvent actionEvent) {
         if (Sesion.getCompanySelected() != null) App.loadFXML("edit-company-view.fxml" , "Editar empresa" );

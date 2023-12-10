@@ -48,10 +48,10 @@ public class EditarCompanyController implements Initializable {
     public Button btnLogOut;
 
     /**
-     * Inicializa la interfaz de edición de la información de una empresa.
-     * Carga los datos de la empresa seleccionada en los campos correspondientes.
-     * Muestra el nombre de la empresa en la etiqueta "lblCompanyName" y el nombre del profesor en la etiqueta "lblProfesor".
-     * Los datos se obtienen de la sesión y la base de datos.
+     * Inicializa la interfaz de usuario para la edición de una empresa.
+     *
+     * @param url             Ubicación utilizada para resolver rutas relativas a la raíz del objeto.
+     * @param resourceBundle  Se utiliza para localizar objetos específicos del país o para dar formato a mensajes.
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -96,9 +96,9 @@ public class EditarCompanyController implements Initializable {
     }
 
     /**
-     * Borra la empresa seleccionada. Muestra un cuadro de diálogo de confirmación para asegurarse de que el usuario desea
-     * borrar la empresa. Si hay alumnos asignados a la empresa, muestra una advertencia y no permite la eliminación.
-     * Si la empresa se elimina correctamente, vuelve a la vista principal de empresas.
+     * Borra la empresa seleccionada. Muestra un cuadro de diálogo de confirmación para asegurarse de que el usuario
+     * desea borrar la empresa. Si hay alumnos asignados a la empresa, muestra una advertencia y no permite la
+     * eliminación. Si la empresa se elimina correctamente, vuelve a la vista principal de empresas.
      *
      * @param actionEvent Evento de acción asociado al clic del botón "Delete".
      */
@@ -113,7 +113,8 @@ public class EditarCompanyController implements Initializable {
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 if (companyDAO.studentHasCompany(Sesion.getCompanySelected())) {
                     Alert alertStudents = new Alert(Alert.AlertType.WARNING);
-                    alertStudents.setContentText("No se puede eliminar esta empresa ya que aún contiene alumnos asignados a ella");
+                    alertStudents.setContentText("No se puede eliminar esta empresa ya que aún contiene alumnos " +
+                            "asignados a ella");
                     alertStudents.showAndWait();
                 } else {
                     companyDAO.deleteCompany(Sesion.getCompanySelected());
@@ -127,7 +128,8 @@ public class EditarCompanyController implements Initializable {
     /**
      * Edita la información de la empresa seleccionada. Realiza validaciones antes de realizar la edición,
      * como asegurarse de que el nombre tenga al menos 2 caracteres, que el correo electrónico sea válido, etc.
-     * Si la edición se realiza con éxito, muestra un cuadro de diálogo de confirmación y vuelve a la vista principal de empresas.
+     * Si la edición se realiza con éxito, muestra un cuadro de diálogo de confirmación y vuelve a la vista principal
+     * de empresas.
      *
      * @param actionEvent Evento de acción asociado al clic del botón "Edit".
      */
