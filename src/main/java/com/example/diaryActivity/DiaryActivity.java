@@ -7,8 +7,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.Date;
 
+/**
+ * Clase que representa una actividad diaria en un diario de actividades.
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -29,6 +31,11 @@ public class DiaryActivity {
     @JoinColumn(name = "student")
     private Student student;
 
+    /**
+     * Método toString que representa en forma de texto a la entidad.
+     *
+     * @return Representación de cadena de la entidad DiaryActivity.
+     */
     @Override
     public String toString() {
         return "DiaryActivity{" +
