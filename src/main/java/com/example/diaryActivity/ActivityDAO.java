@@ -7,12 +7,20 @@ import lombok.extern.java.Log;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-
-import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementación de DAO (Data Access Object) para la entidad DiaryActivity.
+ * Proporciona métodos para acceder y manipular los datos de las actividades en la base de datos.
+ */
 @Log
 public class ActivityDAO implements DAO<DiaryActivity> {
+
+    /**
+     * Obtiene todas las actividades diarias almacenadas en la base de datos.
+     *
+     * @return Lista de actividades diarias, o null si hay un error o no hay actividades.
+     */
     @Override
     public List<DiaryActivity> getAll( ) {
         //Creo una lista de DiaryActivity para almacenar los estudiantes
@@ -29,6 +37,12 @@ public class ActivityDAO implements DAO<DiaryActivity> {
         return result;
     }
 
+    /**
+     * Obtiene una actividad diaria específica por su identificador.
+     *
+     * @param id Identificador único de la actividad diaria.
+     * @return Actividad diaria correspondiente al identificador proporcionado, o una instancia vacía si no se encuentra.
+     */
     @Override
     public DiaryActivity get( Long id ) {
         //Creo una instancia de DiaryActivity
@@ -42,6 +56,12 @@ public class ActivityDAO implements DAO<DiaryActivity> {
         return salida;
     }
 
+    /**
+     * Guarda una nueva actividad diaria en la base de datos.
+     *
+     * @param data La actividad diaria que se va a guardar.
+     * @return La actividad diaria guardada.
+     */
     @Override
     public DiaryActivity save( DiaryActivity data ) {
         //Abro sesión en hibernate
@@ -64,6 +84,11 @@ public class ActivityDAO implements DAO<DiaryActivity> {
         }
     }
 
+    /**
+     * Actualiza una actividad diaria existente en la base de datos.
+     *
+     * @param data La actividad diaria que se va a actualizar.
+     */
     @Override
     public void update( DiaryActivity data ) {
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -85,6 +110,11 @@ public class ActivityDAO implements DAO<DiaryActivity> {
         }
     }
 
+    /**
+     * Elimina una actividad diaria de la base de datos.
+     *
+     * @param data La actividad diaria que se va a eliminar.
+     */
     public void delete(DiaryActivity data) {
         HibernateUtil.getSessionFactory().inTransaction(session -> {
             // Obtengo el objeto DiaryActivity a partir de su id
@@ -94,6 +124,12 @@ public class ActivityDAO implements DAO<DiaryActivity> {
         });
     }
 
+    /**
+     * Obtiene la lista de actividades diarias asociadas a un estudiante.
+     *
+     * @param student El estudiante del cual se quieren obtener las actividades.
+     * @return Lista de actividades diarias asociadas al estudiante, o una lista vacía si no hay actividades.
+     */
     public List<DiaryActivity> activitiesOfStudent( Student student){
         List<DiaryActivity> salida;
         try ( Session s = HibernateUtil.getSessionFactory( ).openSession( ) ) {
