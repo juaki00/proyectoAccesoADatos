@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class EditarCompanyController implements Initializable {
@@ -71,17 +72,26 @@ public class EditarCompanyController implements Initializable {
 
     @FXML
     public void deleteCompany(ActionEvent actionEvent) {
+        if (Sesion.getCompanySelected() != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setContentText("¿Deseas borrar la empresa " + Sesion.getCompanySelected().getCompany_name() + "?");
 
-        Alert alert = new Alert( Alert.AlertType.CONFIRMATION );
-        alert.setContentText( "¿Deseas borrar la empresa " + Sesion.getCompanySelected().getCompany_name() + "?" );
-        var result = alert.showAndWait( ).get( );
-        if (result.getButtonData( ) == ButtonBar.ButtonData.OK_DONE) {
-            companyDAO.deleteCompany( Sesion.getCompanySelected() );
-            back( );
+            Optional<ButtonType> result = alert.showAndWait();
 
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                if (companyDAO.studentHasCompany(Sesion.getCompanySelected())) {
+                    Alert alertStudents = new Alert(Alert.AlertType.WARNING);
+                    alertStudents.setContentText("No se puede eliminar esta empresa ya que aún contiene alumnos asignados a ella");
+                    alertStudents.showAndWait();
+                } else {
+                    companyDAO.deleteCompany(Sesion.getCompanySelected());
+                    back();
+                }
+                Sesion.setCompanySelected(null);
+            }
         }
-
     }
+
     @FXML
     public void editCompany(ActionEvent actionEvent) {
     Company company = Sesion.getCompanySelected();

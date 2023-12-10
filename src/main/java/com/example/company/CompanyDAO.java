@@ -2,6 +2,7 @@ package com.example.company;
 
 import com.example.DAO;
 import com.example.HibernateUtil;
+import com.example.diaryActivity.DiaryActivity;
 import com.example.student.Student;
 import lombok.extern.java.Log;
 import org.hibernate.Session;
@@ -74,6 +75,16 @@ public class CompanyDAO implements DAO<Company> {
             t.commit();
         }
     }
+
+    public boolean studentHasCompany(Company company) {
+        try (Session s = HibernateUtil.getSessionFactory().openSession()) {
+            Query<Long> q = s.createQuery("select count(*) from Student where company = :company", Long.class);
+            q.setParameter("company", company);
+            long count = q.uniqueResult();
+            return count > 0;
+        }
+    }
+
 
     public void deleteCompany( Company companySelected ) {
         HibernateUtil.getSessionFactory().inTransaction(session -> {
