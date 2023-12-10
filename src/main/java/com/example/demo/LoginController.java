@@ -10,10 +10,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controlador para la interfaz de inicio de sesión.
+ * Gestiona la autenticación de usuarios y proporciona opciones para iniciar sesión o registrarse.
+ */
 public class LoginController implements Initializable {
     @FXML
     public TextField txtUser;
@@ -28,6 +31,13 @@ public class LoginController implements Initializable {
     @FXML
     public Label lblError;
 
+    /**
+     * Inicializa el controlador después de que se ha cargado la interfaz de usuario.
+     * Se ejecuta automáticamente por JavaFX.
+     *
+     * @param url            Ubicación relativa del archivo FXML.
+     * @param resourceBundle El paquete de recursos utilizado para localizar objetos.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         comboTypeUser.setValue(comboTypeUser.getItems().getFirst());
@@ -46,6 +56,13 @@ public class LoginController implements Initializable {
             }
         });
     }
+
+    /**
+     * Método que se ejecuta al pulsar sobre el botón de inicio de sesión.
+     * Valida las credenciales del usuario (alumno o profesor) y carga la interfaz correspondiente.
+     *
+     * @param actionEvent Evento de acción generado al hacer clic en el botón de inicio de sesión.
+     */
     public void login(ActionEvent actionEvent) {
         StudentDAO daoS = new StudentDAO();
         TeacherDAO daoT = new TeacherDAO();
@@ -89,6 +106,12 @@ public class LoginController implements Initializable {
         }
     }
 
+    /**
+     * Método que se ejecuta al pulsar sobre el botón de registro.
+     * Carga la interfaz de registro para permitir a los usuarios crear nuevas cuentas.
+     *
+     * @param actionEvent Evento de acción generado al hacer clic en el botón de registro.
+     */
     public void register(ActionEvent actionEvent) {
         App.loadFXML("register-view.fxml","Register");
     }
