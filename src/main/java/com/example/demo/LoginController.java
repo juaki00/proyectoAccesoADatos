@@ -89,7 +89,8 @@ public class LoginController implements Initializable {
                 if (daoT.isCorrectProfesor(txtUser.getText(), txtPass.getText())) {
                     Sesion.setTeacherLogged(daoT.loadLogin(txtUser.getText(), txtPass.getText() ));
 
-                    App.loadFXML("teacher-view.fxml", "Alumnos de " + Sesion.getTeacherLogged().getFirst_name());
+                    App.loadFXML("teacher-view.fxml", "Alumnos de " +
+                            Sesion.getTeacherLogged().getFirst_name());
                 } else {
                     txtUser.setText("");
                     txtPass.setText("");

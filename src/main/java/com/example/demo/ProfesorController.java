@@ -1,11 +1,9 @@
 package com.example.demo;
 
 import com.example.App;
-import com.example.HibernateUtil;
 import com.example.Sesion;
 import com.example.company.Company;
 import com.example.company.CompanyDAO;
-import com.example.diaryActivity.DiaryActivity;
 import com.example.student.Student;
 import com.example.teacher.Teacher;
 import com.example.teacher.TeacherDAO;
@@ -13,13 +11,9 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
-import org.hibernate.Transaction;
-
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,21 +21,13 @@ import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Controlador para la interfaz gráfica asociada al archivo FXML 'profesor-view.fxml'.
+ * Maneja la lógica de la interfaz gráfica utilizada por los profesores.
+ */
 public class ProfesorController implements Initializable {
-
     TeacherDAO teacherDAO;
     CompanyDAO companyDAO;
-
-    @FXML
-    private Label labelBienvenidaProfesor;
-    @FXML
-    private Button btnAñadir;
-    @FXML
-    private Button btnVerAlumno;
-    @FXML
-    private Button btnVerEmpresas;
-    @FXML
-    private Button btnLogOut;
     @FXML
     private TableView<Student> studentsTable;
     @FXML
@@ -81,6 +67,12 @@ public class ProfesorController implements Initializable {
     @FXML
     private TextArea textObservations;
 
+    /**
+     * Inicializa el controlador después de que se haya cargado la interfaz gráfica.
+     *
+     * @param url            Ubicación relativa del archivo FXML.
+     * @param resourceBundle El paquete de recursos utilizado para localizar archivos FXML.
+     */
     @Override
     public void initialize( URL url , ResourceBundle resourceBundle ) {
         teacherDAO = new TeacherDAO();
@@ -100,6 +92,11 @@ public class ProfesorController implements Initializable {
         } );
     }
 
+    /**
+     * Rellena la tabla de estudiantes en la interfaz gráfica con los datos de los estudiantes asociados al profesor
+     * actual.
+     * Utiliza el DAO de profesores para obtener la lista de estudiantes asociados al profesor actual de la sesión.
+     */
     private void fillTable( ) {
         Teacher teacher = Sesion.getTeacherLogged( );
         TeacherDAO teacherDAO = new TeacherDAO( );
@@ -148,6 +145,10 @@ public class ProfesorController implements Initializable {
         studentsTable.setItems( observableList );
     }
 
+    /**
+     * Añade un nuevo estudiante con la información proporcionada en la interfaz gráfica.
+     * Muestra mensajes de advertencia si los datos introducidos no cumplen con los requisitos establecidos.
+     */
     @FXML
     public void insertStudent( ) {
         if(textName.getText().length() < 3){
@@ -206,6 +207,12 @@ public class ProfesorController implements Initializable {
         }
     }
 
+    /**
+     * Comprueba si el texto proporcionado es un número de teléfono válido.
+     *
+     * @param text El texto a validar como número de teléfono.
+     * @return true si el texto es un número de teléfono válido, false de lo contrario.
+     */
     private boolean comprobarTelefono( String text ) {
         boolean salida = true;
         try {
@@ -216,6 +223,12 @@ public class ProfesorController implements Initializable {
         return salida;
     }
 
+    /**
+     * Comprueba si el texto proporcionado es una dirección de correo electrónico válida.
+     *
+     * @param text El texto a validar como dirección de correo electrónico.
+     * @return true si el texto es una dirección de correo electrónico válida, false de lo contrario.
+     */
     private boolean comprobarEmail( String text ) {
         boolean salida;
         // Patrón para validar el email
@@ -233,6 +246,12 @@ public class ProfesorController implements Initializable {
         return salida;
     }
 
+    /**
+     * Comprueba si el texto proporcionado es un DNI (Documento Nacional de Identidad) válido.
+     *
+     * @param text El texto a validar como DNI.
+     * @return true si el texto es un DNI válido, false de lo contrario.
+     */
     private boolean comprobarDNI( String text ) {
         boolean salida = true;
         if(text.length()!=9 || !Character.isLetter( text.charAt( 8 ) ))salida = false;
@@ -246,16 +265,31 @@ public class ProfesorController implements Initializable {
         return salida;
     }
 
+    /**
+     * Maneja el evento de detalles del estudiante. Carga la vista de edición del estudiante si hay un estudiante seleccionado.
+     *
+     * @param actionEvent El evento de acción que desencadenó esta función.
+     */
     @FXML
     public void studentDetails( ActionEvent actionEvent ) {
         if (Sesion.getStudentSelected() != null) App.loadFXML("edit-student-view.fxml" , "Editar estudiante" );
     }
 
+    /**
+     * Maneja el evento para ver la lista de empresas. Carga la vista de empresas.
+     *
+     * @param actionEvent El evento de acción que desencadenó esta función.
+     */
     @FXML
     public void companies( ActionEvent actionEvent ) {
         App.loadFXML("company-view.fxml" , "Empresas" );
     }
 
+    /**
+     * Maneja el evento de cierre de sesión. Cierra la sesión actual y carga la vista de inicio de sesión.
+     *
+     * @param actionEvent El evento de acción que desencadenó esta función.
+     */
     @FXML
     public void logout( ActionEvent actionEvent ) {
         Sesion.logOut();
