@@ -41,7 +41,7 @@ public class ActivityDAO implements DAO<DiaryActivity> {
      * Obtiene una actividad diaria específica por su identificador.
      *
      * @param id Identificador único de la actividad diaria.
-     * @return Actividad diaria correspondiente al identificador proporcionado, o una instancia vacía si no se encuentra.
+     * @return Actividad diaria correspondiente al identificador proporcionado o una instancia vacía si no se encuentra.
      */
     @Override
     public DiaryActivity get( Long id ) {
@@ -133,7 +133,8 @@ public class ActivityDAO implements DAO<DiaryActivity> {
     public List<DiaryActivity> activitiesOfStudent( Student student){
         List<DiaryActivity> salida;
         try ( Session s = HibernateUtil.getSessionFactory( ).openSession( ) ) {
-            Query<DiaryActivity> q = s.createQuery( "from DiaryActivity where student =: id" , DiaryActivity.class );
+            Query<DiaryActivity> q = s.createQuery( "from DiaryActivity where student =: id" ,
+                    DiaryActivity.class );
             q.setParameter( "id" , student );
             salida = q.getResultList( );
         }

@@ -103,7 +103,6 @@ public class LoginController implements Initializable {
                 lblError.setText("Error de conexion con la base de datos");
                 System.out.println(e.getMessage());
             }
-
         }
     }
 
@@ -116,7 +115,4 @@ public class LoginController implements Initializable {
     public void register(ActionEvent actionEvent) {
         App.loadFXML("register-view.fxml","Register");
     }
-
-
-
 }
