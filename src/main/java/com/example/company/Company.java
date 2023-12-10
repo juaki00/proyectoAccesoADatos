@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+/**
+ * Clase que representa una empresa.
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -27,6 +30,11 @@ public class Company {
     @OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
     private List<Student> student;
 
+    /**
+     * Devuelve una representación en forma de String de la empresa.
+     *
+     * @return Representación en cadena de la empresa.
+     */
     @Override
     public String toString() {
         return "Company{" +
